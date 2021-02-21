@@ -1,0 +1,7 @@
+{
+    "application.documentTitle": "Application",
+    "application.menu": "Accueil",
+    "application.subtitle": "<strong>Coupage (/ku.paʒ/)</strong> est une petite boîte à outils qui vise à simplifier la création d'applications extensibles basées sur un navigateur. Elle nimplémente un mécanisme de chargement d'extensions dans une application hôte et prend en charge les dépendances partagées.",
+    "application.switchTheme": "Changer de thème",
+    "application.title": "Coupage Showcase"
+}

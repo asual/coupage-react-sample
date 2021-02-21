@@ -1,0 +1,12 @@
+{
+    "collectCoverage": true,
+    "collectCoverageFrom": ["src/**/*.{ts,tsx}"],
+    "coverageDirectory": "coverage",
+    "coveragePathIgnorePatterns": ["node_modules"],
+    "coverageReporters": ["html", "text"],
+    "moduleDirectories": ["node_modules", "src"],
+    "moduleFileExtensions": ["js", "json", "ts", "tsx"],
+    "preset": "ts-jest",
+    "reporters": ["jest-standard-reporter"],
+    "testMatch": ["<rootDir>/src/**/*.test.{ts,tsx}"]
+}

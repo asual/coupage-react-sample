@@ -1,0 +1,7 @@
+{
+    "application.documentTitle": "Application",
+    "application.menu": "Home",
+    "application.subtitle": "<strong>Coupage (/ku.paʒ/)</strong> is a tiny toolkit that aims to simplify the creation of extensible browser-based applications. It implements a mechanism for extension loading inside an application host and takes care of shared dependencies.",
+    "application.switchTheme": "Switch theme",
+    "application.title": "Coupage Showcase"
+}
