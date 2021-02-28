@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Rostislav Hristov
+ * Copyright (c) 2020-2021 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -102,7 +102,7 @@ export default function Content() {
                 <Box height={500} width={500}>
                     <Paper>
                         <VictoryChart
-                            animate={{ duration: 1000 }}
+                            animate
                             domain={{ x: [new Date(1969, 11, 31), new Date(2020, 1, 0)], y: [0, 100.1] }}
                             height={425}
                             theme={chartTheme}
@@ -124,7 +124,7 @@ export default function Content() {
                 <Box height={500} width={500}>
                     <Paper>
                         <VictoryChart
-                            animate={{ duration: 1000 }}
+                            animate
                             domain={{ x: [new Date(1969, 11, 31), new Date(2020, 1, 0)], y: [0, 100.1] }}
                             height={425}
                             theme={chartTheme}

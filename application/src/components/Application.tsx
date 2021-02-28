@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Rostislav Hristov
+ * Copyright (c) 2020-2021 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-import { Resources } from "@coupage/core";
+import { ExtensionResources } from "@coupage/core";
 import { ExtensionProvider } from "@coupage/react";
 import { IntlProvider } from "react-intl";
 import { BrowserRouter } from "react-router-dom";
@@ -44,7 +44,7 @@ interface ApplicationProps {
     locale: string;
     messages: Record<string, string>;
     nonce?: string;
-    resources: Resources;
+    resources: Record<string, ExtensionResources>;
 }
 
 export default function Application({ locale, messages, nonce, resources }: ApplicationProps) {
