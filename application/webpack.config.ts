@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Rostislav Hristov
+ * Copyright (c) 2020-2021 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,11 +29,10 @@ import GenerateJsonWebpackPlugin from "generate-json-webpack-plugin";
 import { sync } from "glob";
 import { EnvironmentPlugin, WebpackPluginInstance } from "webpack";
 
-export const interpolateName = (path: string) => {
+const interpolateName = (path: string) => {
     const hash = createHash("md4").update(readFileSync(path)).digest("hex").substr(0, 8);
     return basename(path).replace(".", "." + hash + ".");
 };
-
 const findFile = (path: string, file: string): string => {
     if (existsSync(join(path, file))) {
         return join(path, file);
@@ -76,10 +75,6 @@ export default {
                     from: resource,
                     to: resourcePath(resource),
                 })),
-            ],
-        }),
-        new CopyWebpackPlugin({
-            patterns: [
                 ...Object.values(commonIntlMap).map((intl) => ({
                     from: intl,
                     to: join("common", "messages", interpolateName(intl)),

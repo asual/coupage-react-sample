@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Rostislav Hristov
+ * Copyright (c) 2020-2021 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,6 @@ import { ExtensionPoint } from "@coupage/react";
 import { Drawer, List } from "@material-ui/core";
 import { Home } from "@material-ui/icons";
 import { extensionDefinitionTemplate, extensionPointNames } from "common";
-import { Fragment } from "react";
 import { FormattedMessage } from "react-intl";
 
 import NavigationItem from "components/NavigationItem";
@@ -39,7 +38,7 @@ export default function Navigation() {
                     label={<FormattedMessage defaultMessage="Home" id="application.menu" />}
                     path="/"
                 />
-                <ExtensionPoint fallback={<Fragment />} name={extensionPointNames.navigation}>
+                <ExtensionPoint name={extensionPointNames.navigation}>
                     {({ icon, label, path }: typeof extensionDefinitionTemplate.navigation) => (
                         <NavigationItem icon={icon} label={label} path={path} />
                     )}

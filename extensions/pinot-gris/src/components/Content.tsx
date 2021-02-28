@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Rostislav Hristov
+ * Copyright (c) 2020-2021 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -101,7 +101,7 @@ export default function Content() {
                                 <TableRow>
                                     <TableCell colSpan={chartData.length}>
                                         <Typography variant="body1">
-                                            <FormattedMessage defaultMessage="Pinot Gris" id="pinotGris.title" />
+                                            <FormattedMessage defaultMessage="All Results" id="pinotGris.allResults" />
                                         </Typography>
                                     </TableCell>
                                 </TableRow>
@@ -145,7 +145,7 @@ export default function Content() {
                                 <TableRow>
                                     <TableCell colSpan={chartData.length}>
                                         <Typography variant="body1">
-                                            <FormattedMessage defaultMessage="Pinot Gris" id="pinotGris.title" />
+                                            <FormattedMessage defaultMessage="Top Results" id="pinotGris.topResults" />
                                         </Typography>
                                     </TableCell>
                                 </TableRow>
