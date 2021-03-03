@@ -22,7 +22,8 @@
 
 import { createExtensionDefinition } from "@coupage/core";
 import { ExtensionComponent } from "@coupage/react";
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, makeStyles, Typography } from "@material-ui/core";
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { ViewComfy } from "@material-ui/icons";
 import { extensionDefinitionTemplate, extensionPointNames } from "common";
 import { FormattedMessage, useIntl } from "react-intl";
