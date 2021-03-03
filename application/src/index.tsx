@@ -24,6 +24,7 @@ import { preloadResources } from "@coupage/core";
 import { createElement, Fragment, ReactElement, StrictMode, useEffect, useState } from "react";
 import { render } from "react-dom";
 
+import { createLoadingElement } from "loading";
 import { pluralRules, relativeTimeFormat } from "polyfills";
 
 const commonIntlMap = Object.fromEntries(process.env.COMMON_INTL_MAP as Iterable<[]>) as Record<string, string>;
@@ -38,74 +39,14 @@ if (nonce) {
     __webpack_nonce__ = nonce;
 }
 
-const createSpinnerElement = () => {
-    const style = document.createElement("style");
-    if (nonce) {
-        style.setAttribute("nonce", nonce);
-    }
-    style.textContent = `
-        @keyframes circular-dash {
-            0% {
-                stroke-dasharray: 1px, 200px;
-                stroke-dashoffset: 0px;
-            }
-            50% {
-                stroke-dasharray: 100px, 200px;
-                stroke-dashoffset: -15px;
-            }
-            100% {
-                stroke-dasharray: 100px, 200px;
-                stroke-dashoffset: -125px;
-            }
-        } 
-        @keyframes rotate {
-            0% {
-                transform-origin: 50% 50%;
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        .spinner {
-            animation: rotate 1.4s linear infinite;
-            color: #3f51b5;
-            display: inline-block;
-            height: 40px;
-            width: 40px;
-        }
-        .spinner-container {
-            display: flex;
-            position: absolute;
-            padding: 12px;
-            z-index: 9999;
-        }
-        .spinner-content {
-            animation: circular-dash 1.4s ease-in-out infinite;
-            stroke: currentColor;
-            strokeDasharray: 80px, 200px;
-            strokeDashoffset: 0;
-        }
-    `;
-    document.head.appendChild(style);
-    return (
-        <div className="spinner-container">
-            <div className="spinner">
-                <svg viewBox="22 22 44 44">
-                    <circle className="spinner-content" cx="44" cy="44" r="20.2" fill="none" strokeWidth="3.6"></circle>
-                </svg>
-            </div>
-        </div>
-    );
-};
-
 render(
     <StrictMode>
         {createElement(() => {
             const [applicationElement, setApplicationElement] = useState<ReactElement | null>(null);
-            const [spinnerElement, setSpinnerElement] = useState<ReactElement | null>(null);
+            const [loadingElement, setLoadingElement] = useState<ReactElement | null>(null);
             useEffect(() => {
                 const timeout = setTimeout(() => {
-                    setSpinnerElement(createSpinnerElement());
+                    setLoadingElement(createLoadingElement(nonce));
                 }, 250);
                 fetch("/resources.json")
                     .then((data) => data.json())
@@ -136,7 +77,7 @@ render(
                     clearTimeout(timeout);
                 };
             }, []);
-            return applicationElement || spinnerElement || <Fragment />;
+            return applicationElement || loadingElement || <Fragment />;
         })}
     </StrictMode>,
     document.querySelector(".application")

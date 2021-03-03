@@ -22,7 +22,7 @@
 
 import { createHash } from "crypto";
 import { existsSync, readFileSync } from "fs";
-import { basename, join } from "path";
+import { basename, join, resolve } from "path";
 
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import GenerateJsonWebpackPlugin from "generate-json-webpack-plugin";
@@ -40,9 +40,11 @@ const findFile = (path: string, file: string): string => {
     return findFile(join(path, ".."), file);
 };
 const readFile = (path: string) => JSON.parse(readFileSync(path).toString());
-const resourcePath = (path: string) => path.replace(/(\.\.|dist)\//g, "");
+const cleanPath = (path: string) => path.replace(/(\.\.|dist)\//g, "");
 
-const commonIntlMap: Record<string, string> = sync("node_modules/common/intl/*.*").reduce(
+const commonIntlMap = sync("node_modules/common/intl/*.*", {
+    cwd: __dirname,
+}).reduce<Record<string, string>>(
     (acc, val) => ({
         ...acc,
         [basename(val, ".json")]: val,
@@ -50,9 +52,12 @@ const commonIntlMap: Record<string, string> = sync("node_modules/common/intl/*.*
     {}
 );
 
-const extensionResources = sync("../extensions/*/dist/*/*.*");
+const extensionResources = sync("../extensions/*/dist/*/*.*", {
+    cwd: __dirname,
+});
+
 const resources = extensionResources.reduce((acc: Record<string, Record<string, Record<string, unknown>>>, val) => {
-    const name = readFile(findFile(val, "package.json")).name;
+    const name = readFile(findFile(resolve(__dirname, val), "package.json")).name;
     const resourceFolder = basename(join(val, ".."));
     const resourceName = basename(val).split(".")[0];
     return {
@@ -61,7 +66,7 @@ const resources = extensionResources.reduce((acc: Record<string, Record<string, 
             ...acc[name],
             [resourceFolder]: {
                 ...(acc[name] && acc[name][resourceFolder]),
-                [resourceName]: join("/", resourcePath(val)),
+                [resourceName]: join("/", cleanPath(val)),
             },
         },
     };
@@ -73,7 +78,7 @@ export default {
             patterns: [
                 ...extensionResources.map((resource) => ({
                     from: resource,
-                    to: resourcePath(resource),
+                    to: cleanPath(resource),
                 })),
                 ...Object.values(commonIntlMap).map((intl) => ({
                     from: intl,

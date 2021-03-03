@@ -1,10 +1,8 @@
 # Coupage React Sample
 
-## Overview
-
-The following sample project showcases the basic capabilities of the [Coupage](asual/coupage) toolkit. It contains a
-sample application, a set of common extensibility rules and a few sample extensions. It also offers a built-in
-internationalization and a highly optimized production setup.
+A complete sample project that showcases the basic capabilities of the [Coupage](https://github.com/asual/coupage)
+toolkit and contains a host application, a set of common extension definition rules, and a few sample extensions. It
+offers a built-in internationalization and a highly optimized production setup.
 
 Each of the provided sample packages can be independently built and extracted into a separate code repository.
 
