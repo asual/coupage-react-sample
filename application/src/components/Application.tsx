@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Rostislav Hristov
+ * Copyright (c) 2020-2022 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,23 +22,15 @@
 
 import { ExtensionResources } from "@coupage/core";
 import { ExtensionProvider } from "@coupage/react";
+import createCache from "@emotion/cache";
+import { CacheProvider } from "@emotion/react";
+import { useMemo } from "react";
 import { IntlProvider } from "react-intl";
 import { BrowserRouter } from "react-router-dom";
 
-import Content from "components/Content";
-
-const dependencies = {
-    "@coupage/core": require("@coupage/core"),
-    "@coupage/react": require("@coupage/react"),
-    "@material-ui/core": require("@material-ui/core"),
-    "@material-ui/core/styles": require("@material-ui/core/styles"),
-    "@material-ui/core/utils": require("@material-ui/core/utils"),
-    common: require("common"),
-    react: require("react"),
-    "react-intl": require("react-intl"),
-    "react-router-dom": require("react-router-dom"),
-    tslib: require("tslib"),
-} as Record<string, unknown>;
+import ApplicationContainer from "components/ApplicationContainer";
+import ApplicationTitle from "components/ApplicationTitle";
+import { dependencies } from "dependencies";
 
 interface ApplicationProps {
     locale: string;
@@ -48,13 +40,24 @@ interface ApplicationProps {
 }
 
 export default function Application({ locale, messages, nonce, resources }: ApplicationProps) {
+    const cache = useMemo(
+        () =>
+            createCache({
+                key: "css",
+                nonce,
+            }),
+        [nonce]
+    );
     return (
-        <IntlProvider defaultLocale="en" locale={locale} messages={messages}>
-            <BrowserRouter>
-                <ExtensionProvider dependencies={dependencies} nonce={nonce} resources={resources}>
-                    <Content />
-                </ExtensionProvider>
-            </BrowserRouter>
-        </IntlProvider>
+        <BrowserRouter>
+            <IntlProvider defaultLocale="en" locale={locale} messages={messages}>
+                <CacheProvider value={cache}>
+                    <ExtensionProvider dependencies={dependencies} nonce={nonce} resources={resources}>
+                        <ApplicationTitle />
+                        <ApplicationContainer />
+                    </ExtensionProvider>
+                </CacheProvider>
+            </IntlProvider>
+        </BrowserRouter>
     );
 }

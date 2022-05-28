@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Rostislav Hristov
+ * Copyright (c) 2020-2022 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,32 +20,24 @@
  * SOFTWARE.
  */
 
-import { ListItem, ListItemIcon, Tooltip } from "@material-ui/core";
-import { ReactElement } from "react";
-import { MessageDescriptor, useIntl } from "react-intl";
-import { Link, useRouteMatch } from "react-router-dom";
+import commandLineArgs from "command-line-args";
 
-interface NavigationItemProps {
-    exact?: boolean;
-    icon: ReactElement;
-    label: ReactElement<MessageDescriptor>;
-    path: string;
-}
+import { intl } from "./intl";
 
-export default function NavigationItem({ exact = false, icon, label, path }: NavigationItemProps) {
-    const intl = useIntl();
-    const routeMatch = useRouteMatch({
-        exact,
-        path,
-    });
+const command = commandLineArgs(
+    [
+        {
+            defaultOption: true,
+            name: "name",
+        },
+    ],
+    {
+        stopAtFirstUnknown: true,
+    }
+);
 
-    return (
-        <Tooltip placement="right" title={label}>
-            <ListItem disableGutters selected={!!routeMatch}>
-                <Link aria-label={intl.formatMessage({ id: label.props.id })} to={path}>
-                    <ListItemIcon>{icon}</ListItemIcon>
-                </Link>
-            </ListItem>
-        </Tooltip>
-    );
+switch (command.name) {
+    case "intl":
+        intl();
+        break;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Rostislav Hristov
+ * Copyright (c) 2020-2022 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,23 +20,23 @@
  * SOFTWARE.
  */
 
+import { expect, test } from "@jest/globals";
 import { render } from "@testing-library/react";
 import { IntlProvider } from "react-intl";
-import { MemoryRouter } from "react-router";
 
-import Navigation from "components/Navigation";
+import ApplicationTitle from "components/ApplicationTitle";
 
-test("Navigation", () => {
+test("ApplicationTitle", () => {
     render(
         <IntlProvider
             locale="en"
             messages={{
-                "application.menu": "Test",
+                "application.title": "Test",
             }}
         >
-            <MemoryRouter>
-                <Navigation />
-            </MemoryRouter>
+            <ApplicationTitle />
         </IntlProvider>
     );
+    expect(document.documentElement.lang).toEqual("en");
+    expect(document.title).toEqual("Test");
 });

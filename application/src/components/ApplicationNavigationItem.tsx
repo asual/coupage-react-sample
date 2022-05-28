@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Rostislav Hristov
+ * Copyright (c) 2020-2022 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,34 +20,31 @@
  * SOFTWARE.
  */
 
-import { createExtensionPointDefinition, extractExtensionPointNames } from "@coupage/core";
-import { Typography } from "@material-ui/core";
+import { ListItem, ListItemIcon, Tooltip } from "@mui/material";
 import { ReactElement } from "react";
-import { FormattedMessage, MessageDescriptor } from "react-intl";
+import { MessageDescriptor, useIntl } from "react-intl";
+import { Link, useMatch } from "react-router-dom";
 
-export const extensionDefinitionTemplate = {
-    content: createExtensionPointDefinition<{
-        component: () => ReactElement;
-        path: string;
-    }>(),
-    navigation: createExtensionPointDefinition<{
-        icon: ReactElement;
-        label: ReactElement<MessageDescriptor>;
-        path: string;
-    }>(),
-    widget: createExtensionPointDefinition<{
-        component: () => ReactElement;
-    }>(),
-};
-
-export const extensionPointNames = extractExtensionPointNames(extensionDefinitionTemplate);
-
-export function PageNotFound() {
-    return (
-        <Typography variant="h1">
-            <FormattedMessage defaultMessage="Page Not Found" id="common.pageNotFound" />
-        </Typography>
-    );
+interface ApplicationNavigationItemProps {
+    icon: ReactElement;
+    label: ReactElement<MessageDescriptor>;
+    path: string;
 }
 
-export const PAGE_NOT_FOUND_PATH = "/error";
+export default function ApplicationNavigationItem({ icon, label, path }: ApplicationNavigationItemProps) {
+    const intl = useIntl();
+    const routeMatch = useMatch({
+        end: path === "/",
+        path,
+    });
+
+    return (
+        <Tooltip placement="right" title={label}>
+            <ListItem selected={!!routeMatch}>
+                <Link aria-label={intl.formatMessage({ id: label.props.id })} to={path}>
+                    <ListItemIcon>{icon}</ListItemIcon>
+                </Link>
+            </ListItem>
+        </Tooltip>
+    );
+}

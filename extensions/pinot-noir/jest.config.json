@@ -4,9 +4,12 @@
     "coverageDirectory": "coverage",
     "coveragePathIgnorePatterns": ["node_modules"],
     "coverageReporters": ["html", "text"],
-    "moduleDirectories": ["node_modules", "src"],
-    "moduleFileExtensions": ["js", "json", "ts", "tsx"],
-    "preset": "ts-jest",
+    "moduleDirectories": ["<rootDir>/src", "node_modules"],
+    "moduleFileExtensions": ["cjs", "js", "json", "mjs", "ts", "tsx"],
     "reporters": ["jest-standard-reporter"],
-    "testMatch": ["<rootDir>/src/**/*.test.{ts,tsx}"]
+    "testEnvironment": "jsdom",
+    "testMatch": ["<rootDir>/src/**/*.test.{ts,tsx}"],
+    "transform": {
+        "^.+\\.(j|t)sx?$": "@swc/jest"
+    }
 }

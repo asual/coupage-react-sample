@@ -22,61 +22,43 @@
 
 import { createExtensionDefinition } from "@coupage/core";
 import { ExtensionComponent } from "@coupage/react";
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { Equalizer } from "@material-ui/icons";
+import { Equalizer } from "@mui/icons-material";
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Typography, useTheme } from "@mui/material";
 import { extensionDefinitionTemplate, extensionPointNames } from "common";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-    cardAvatar: {
-        background: "#A3BA00",
-        color: theme.palette.background.default,
-    },
-    cardContent: {
-        minHeight: theme.spacing(20),
-    },
-}));
-
 export default createExtensionDefinition(extensionDefinitionTemplate, {
-    content: {
-        component: function Content() {
-            return <ExtensionComponent name={extensionPointNames.content} />;
-        },
-        path: "/pinot-blanc",
-    },
-    navigation: {
-        icon: <Equalizer />,
-        label: <FormattedMessage defaultMessage="Pinot Blanc" id="pinotBlanc.menu" />,
-        path: "/pinot-blanc",
-    },
-    widget: {
-        component: function Widget() {
-            const classes = useStyles();
-            const intl = useIntl();
+    card: {
+        component: function CardContainer() {
+            const theme = useTheme();
             return (
                 <Card>
                     <CardHeader
                         avatar={
                             <Avatar
-                                aria-label={intl.formatMessage({ id: "pinotBlanc.widgetTitle" })}
-                                className={classes.cardAvatar}
+                                sx={{
+                                    background: "#A3BA00",
+                                }}
                             >
                                 <Equalizer />
                             </Avatar>
                         }
                         title={
                             <Typography variant="h2">
-                                <FormattedMessage defaultMessage="Pinot Blanc" id="pinotBlanc.widgetTitle" />
+                                <FormattedMessage defaultMessage="Pinot Blanc" id="pinotBlanc.title" />
                             </Typography>
                         }
                     />
-                    <CardContent className={classes.cardContent}>
+                    <CardContent
+                        sx={{
+                            minHeight: theme.spacing(20),
+                        }}
+                    >
                         <Typography variant="body2">
                             <FormattedMessage
                                 defaultMessage="Pinot blanc is a white wine grape. It is a point genetic mutation of Pinot noir. Pinot noir is genetically unstable and will occasionally experience a point mutation in which a vine bears all black fruit except for one cane which produces white fruit."
-                                id="pinotBlanc.widgetSubtitle"
+                                id="pinotBlanc.subtitle"
                             />
                         </Typography>
                     </CardContent>
@@ -91,5 +73,17 @@ export default createExtensionDefinition(extensionDefinitionTemplate, {
                 </Card>
             );
         },
+        data: 300,
+    },
+    content: {
+        component: function ContentContainer() {
+            return <ExtensionComponent name={extensionPointNames.content} />;
+        },
+        path: "/pinot-blanc",
+    },
+    navigation: {
+        icon: <Equalizer />,
+        label: <FormattedMessage defaultMessage="Pinot Blanc" id="pinotBlanc.navigation" />,
+        path: "/pinot-blanc",
     },
 });

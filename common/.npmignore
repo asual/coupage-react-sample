@@ -1,7 +1,7 @@
 .eslintrc
 .prettierrc
 coverage
-jest.config.json
+jest.config.ts
 node_modules
 src
 tsconfig.json

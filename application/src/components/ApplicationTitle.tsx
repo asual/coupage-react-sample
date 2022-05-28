@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Rostislav Hristov
+ * Copyright (c) 2020-2022 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,30 +20,14 @@
  * SOFTWARE.
  */
 
-import { ExtensionPoint } from "@coupage/react";
-import { Drawer, List } from "@material-ui/core";
-import { Home } from "@material-ui/icons";
-import { extensionDefinitionTemplate, extensionPointNames } from "common";
-import { FormattedMessage } from "react-intl";
+import { Fragment, memo } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 
-import NavigationItem from "components/NavigationItem";
-
-export default function Navigation() {
-    return (
-        <Drawer variant="permanent">
-            <List>
-                <NavigationItem
-                    exact
-                    icon={<Home />}
-                    label={<FormattedMessage defaultMessage="Home" id="application.menu" />}
-                    path="/"
-                />
-                <ExtensionPoint name={extensionPointNames.navigation}>
-                    {({ icon, label, path }: typeof extensionDefinitionTemplate.navigation) => (
-                        <NavigationItem icon={icon} label={label} path={path} />
-                    )}
-                </ExtensionPoint>
-            </List>
-        </Drawer>
+export default memo(function ApplicationTitle() {
+    const intl = useIntl();
+    document.documentElement.lang = intl.locale;
+    document.title = intl.formatMessage(
+        (<FormattedMessage defaultMessage="Coupage Showcase" id="application.title" />).props
     );
-}
+    return <Fragment />;
+});

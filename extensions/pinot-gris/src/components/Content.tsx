@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Rostislav Hristov
+ * Copyright (c) 2020-2022 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,141 +20,164 @@
  * SOFTWARE.
  */
 
-import {
-    Box,
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableRow,
-    Typography,
-} from "@material-ui/core";
-import { PAGE_NOT_FOUND_PATH } from "common";
+import { Box, Paper, Table, TableBody, TableCell, TableFooter, TableHead, TableRow, Typography } from "@mui/material";
+import { PageNotFound } from "common/components";
+import { PAGE_NOT_FOUND_PATH } from "common/constants";
+import { Fragment, useMemo } from "react";
 import { FormattedMessage } from "react-intl";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 export default function Content() {
-    const chartData = [...Array(6)].map(() => [
-        {
-            x: new Date(1970, 1, 1),
-            y: Math.ceil(Math.random() * 5),
-        },
-        {
-            x: new Date(1980, 1, 1),
-            y: Math.ceil(Math.random() * 5),
-        },
-        {
-            x: new Date(1990, 1, 1),
-            y: Math.ceil(Math.random() * 10),
-        },
-        {
-            x: new Date(2000, 1, 1),
-            y: 5 + Math.ceil(Math.random() * 5),
-        },
-        {
-            x: new Date(2010, 1, 1),
-            y: 5 + Math.ceil(Math.random() * 10),
-        },
-        {
-            x: new Date(2020, 1, 1),
-            y: 5 + Math.ceil(Math.random() * 10),
-        },
-    ]);
+    const chartData = useMemo(
+        () =>
+            [...Array(6)].map(() => [
+                {
+                    x: new Date(1970, 1, 1),
+                    y: Math.ceil(Math.random() * 5),
+                },
+                {
+                    x: new Date(1980, 1, 1),
+                    y: Math.ceil(Math.random() * 5),
+                },
+                {
+                    x: new Date(1990, 1, 1),
+                    y: Math.ceil(Math.random() * 10),
+                },
+                {
+                    x: new Date(2000, 1, 1),
+                    y: 5 + Math.ceil(Math.random() * 5),
+                },
+                {
+                    x: new Date(2010, 1, 1),
+                    y: 5 + Math.ceil(Math.random() * 10),
+                },
+                {
+                    x: new Date(2020, 1, 1),
+                    y: 5 + Math.ceil(Math.random() * 10),
+                },
+            ]),
+        []
+    );
     const chartScale = ["#6984E0", "#966ECC", "#B656AD", "#C83D85", "#CB2C59", "#BF2E2C"];
 
     return (
-        <Switch>
-            <Route exact path="/pinot-gris">
-                <Typography variant="h1">
-                    <FormattedMessage defaultMessage="Pinot Gris" id="pinotGris.title" />
-                </Typography>
-                <Box height={500} width={500}>
-                    <Paper>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    {chartData.map((data, i) => (
-                                        <TableCell component="th" key={i} style={{ color: chartScale[i] }}>
-                                            <Typography align="center" variant="body1">
-                                                <strong>{data[i].x.getFullYear()}</strong>
-                                            </Typography>
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {chartData.map((data, i) => (
-                                    <TableRow key={i}>
-                                        {data.map((item, j) => (
-                                            <TableCell key={j}>
-                                                <Typography align="center" variant="body1">
-                                                    {item.y}
+        <Routes>
+            <Route
+                element={
+                    <Fragment>
+                        <Typography variant="h1">
+                            <FormattedMessage defaultMessage="Pinot Gris" id="pinotGris.title" />
+                        </Typography>
+                        <Box
+                            sx={{
+                                height: 500,
+                                width: 500,
+                            }}
+                        >
+                            <Paper>
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            {chartData.map((data, i) => (
+                                                <TableCell component="th" key={i} style={{ color: chartScale[i] }}>
+                                                    <Typography align="center" variant="body1">
+                                                        <strong>{data[i].x.getFullYear()}</strong>
+                                                    </Typography>
+                                                </TableCell>
+                                            ))}
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {chartData.map((data, i) => (
+                                            <TableRow key={i}>
+                                                {data.map((item, j) => (
+                                                    <TableCell key={j}>
+                                                        <Typography align="center" variant="body1">
+                                                            {item.y}
+                                                        </Typography>
+                                                    </TableCell>
+                                                ))}
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                    <TableFooter>
+                                        <TableRow>
+                                            <TableCell colSpan={chartData.length}>
+                                                <Typography variant="body1">
+                                                    <FormattedMessage
+                                                        defaultMessage="All Results"
+                                                        id="pinotGris.allResults"
+                                                    />
                                                 </Typography>
                                             </TableCell>
+                                        </TableRow>
+                                    </TableFooter>
+                                </Table>
+                            </Paper>
+                        </Box>
+                    </Fragment>
+                }
+                path="/pinot-gris"
+            />
+            <Route
+                element={
+                    <Fragment>
+                        <Typography variant="h1">
+                            <FormattedMessage defaultMessage="Pinot Gris" id="pinotGris.title" />
+                        </Typography>
+                        <Box
+                            sx={{
+                                height: 500,
+                                width: 500,
+                            }}
+                        >
+                            <Paper>
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            {chartData.map((data, i) => (
+                                                <TableCell component="th" key={i} style={{ color: chartScale[i] }}>
+                                                    <Typography align="center" variant="body1">
+                                                        <strong>{data[i].x.getFullYear()}</strong>
+                                                    </Typography>
+                                                </TableCell>
+                                            ))}
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {chartData.slice(0, 3).map((data, i) => (
+                                            <TableRow key={i}>
+                                                {data.map((item, j) => (
+                                                    <TableCell key={j}>
+                                                        <Typography align="center" variant="body1">
+                                                            {item.y}
+                                                        </Typography>
+                                                    </TableCell>
+                                                ))}
+                                            </TableRow>
                                         ))}
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                            <TableFooter>
-                                <TableRow>
-                                    <TableCell colSpan={chartData.length}>
-                                        <Typography variant="body1">
-                                            <FormattedMessage defaultMessage="All Results" id="pinotGris.allResults" />
-                                        </Typography>
-                                    </TableCell>
-                                </TableRow>
-                            </TableFooter>
-                        </Table>
-                    </Paper>
-                </Box>
-            </Route>
-            <Route exact path="/pinot-gris/top">
-                <Typography variant="h1">
-                    <FormattedMessage defaultMessage="Pinot Gris" id="pinotGris.title" />
-                </Typography>
-                <Box height={500} width={500}>
-                    <Paper>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    {chartData.map((data, i) => (
-                                        <TableCell component="th" key={i} style={{ color: chartScale[i] }}>
-                                            <Typography align="center" variant="body1">
-                                                <strong>{data[i].x.getFullYear()}</strong>
-                                            </Typography>
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {chartData.slice(0, 3).map((data, i) => (
-                                    <TableRow key={i}>
-                                        {data.map((item, j) => (
-                                            <TableCell key={j}>
-                                                <Typography align="center" variant="body1">
-                                                    {item.y}
+                                    </TableBody>
+                                    <TableFooter>
+                                        <TableRow>
+                                            <TableCell colSpan={chartData.length}>
+                                                <Typography variant="body1">
+                                                    <FormattedMessage
+                                                        defaultMessage="Top Results"
+                                                        id="pinotGris.topResults"
+                                                    />
                                                 </Typography>
                                             </TableCell>
-                                        ))}
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                            <TableFooter>
-                                <TableRow>
-                                    <TableCell colSpan={chartData.length}>
-                                        <Typography variant="body1">
-                                            <FormattedMessage defaultMessage="Top Results" id="pinotGris.topResults" />
-                                        </Typography>
-                                    </TableCell>
-                                </TableRow>
-                            </TableFooter>
-                        </Table>
-                    </Paper>
-                </Box>
-            </Route>
-            <Redirect to={PAGE_NOT_FOUND_PATH} />
-        </Switch>
+                                        </TableRow>
+                                    </TableFooter>
+                                </Table>
+                            </Paper>
+                        </Box>
+                    </Fragment>
+                }
+                path="/pinot-gris/top"
+            />
+            <Route element={<PageNotFound />} path={PAGE_NOT_FOUND_PATH} />
+            <Route path="*" element={<Navigate to={PAGE_NOT_FOUND_PATH} replace />} />
+        </Routes>
     );
 }

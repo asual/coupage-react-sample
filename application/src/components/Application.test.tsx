@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Rostislav Hristov
+ * Copyright (c) 2020-2022 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,10 +20,21 @@
  * SOFTWARE.
  */
 
-import { render } from "@testing-library/react";
+import { expect, test } from "@jest/globals";
+import { render, screen } from "@testing-library/react";
 
 import Application from "components/Application";
 
-test("Application", () => {
-    render(<Application locale="en" messages={{}} resources={{}} />);
+test("Application", async () => {
+    render(
+        <Application
+            locale="en"
+            messages={{
+                "application.navigation": "Test",
+                "application.title": "Test",
+            }}
+            resources={{}}
+        />
+    );
+    expect(await screen.findByLabelText("Test")).toBeDefined();
 });

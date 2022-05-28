@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Rostislav Hristov
+ * Copyright (c) 2020-2022 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,26 +20,22 @@
  * SOFTWARE.
  */
 
-export const pluralRules = (locale: string) =>
-    !Intl.PluralRules
-        ? Promise.all([
-              import(/* webpackChunkName: "main-pluralrules" */ "@formatjs/intl-pluralrules/polyfill"),
-              import(
-                  /* webpackChunkName: "main-pluralrules-[request]" */ `@formatjs/intl-pluralrules/locale-data/${
-                      locale.split("-")[0]
-                  }`
-              ),
-          ])
-        : Promise.resolve();
+import { expect, test } from "@jest/globals";
+import { render, screen } from "@testing-library/react";
+import { IntlProvider } from "react-intl";
 
-export const relativeTimeFormat = (locale: string) =>
-    !Intl.RelativeTimeFormat
-        ? Promise.all([
-              import(/* webpackChunkName: "main-relativetimeformat" */ "@formatjs/intl-relativetimeformat/polyfill"),
-              import(
-                  /* webpackChunkName: "main-relativetimeformat-[request]" */ `@formatjs/intl-relativetimeformat/locale-data/${
-                      locale.split("-")[0]
-                  }`
-              ),
-          ])
-        : Promise.resolve();
+import { PageNotFound } from "components";
+
+test("PageNotFound", async () => {
+    render(
+        <IntlProvider
+            locale="en"
+            messages={{
+                "common.pageNotFound": "Test",
+            }}
+        >
+            <PageNotFound />
+        </IntlProvider>
+    );
+    expect(await screen.findByText("Test")).toBeDefined();
+});

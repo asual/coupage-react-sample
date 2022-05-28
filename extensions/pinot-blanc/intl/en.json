@@ -1,8 +1,7 @@
 {
     "pinotBlanc.allResults": "All Results",
-    "pinotBlanc.menu": "Pinot Blanc",
+    "pinotBlanc.navigation": "Pinot Blanc",
+    "pinotBlanc.subtitle": "Pinot blanc is a white wine grape. It is a point genetic mutation of Pinot noir. Pinot noir is genetically unstable and will occasionally experience a point mutation in which a vine bears all black fruit except for one cane which produces white fruit.",
     "pinotBlanc.title": "Pinot Blanc",
-    "pinotBlanc.topResults": "Top Results",
-    "pinotBlanc.widgetSubtitle": "Pinot blanc is a white wine grape. It is a point genetic mutation of Pinot noir. Pinot noir is genetically unstable and will occasionally experience a point mutation in which a vine bears all black fruit except for one cane which produces white fruit.",
-    "pinotBlanc.widgetTitle": "Pinot Blanc"
+    "pinotBlanc.topResults": "Top Results"
 }

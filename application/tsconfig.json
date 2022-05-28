@@ -12,8 +12,6 @@
         "module": "commonjs",
         "moduleResolution": "node",
         "noImplicitReturns": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
         "resolveJsonModule": true,
         "skipLibCheck": true,
         "strict": true,

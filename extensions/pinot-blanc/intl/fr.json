@@ -1,8 +1,7 @@
 {
     "pinotBlanc.allResults": "Tous les résultats",
-    "pinotBlanc.menu": "Pinot Blanc",
+    "pinotBlanc.navigation": "Pinot Blanc",
+    "pinotBlanc.subtitle": "Le pinot blanc est un raisin de cuve blanc. C'est une mutation génétique ponctuelle du pinot noir. Le pinot noir est génétiquement instable et subira occasionnellement une mutation ponctuelle dans laquelle une vigne porte tous les fruits noirs à l'exception d'une canne qui produit des fruits blancs.",
     "pinotBlanc.title": "Pinot Blanc",
-    "pinotBlanc.topResults": "Meilleurs résultats",
-    "pinotBlanc.widgetSubtitle": "Le pinot blanc est un raisin de cuve blanc. C'est une mutation génétique ponctuelle du pinot noir. Le pinot noir est génétiquement instable et subira occasionnellement une mutation ponctuelle dans laquelle une vigne porte tous les fruits noirs à l'exception d'une canne qui produit des fruits blancs.",
-    "pinotBlanc.widgetTitle": "Pinot Blanc"
+    "pinotBlanc.topResults": "Meilleurs résultats"
 }

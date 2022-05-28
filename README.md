@@ -41,7 +41,7 @@ The sample ships with a deployment recipe that relies on Docker and nginx. It ac
 
 The following commands can be used for building and running the complete sample:
 
-- `docker build --rm -t coupage-react-sample:latest .`
+- `DOCKER_BUILDKIT=1 docker build --rm --progress=plain -t coupage-react-sample:latest .`
 - `docker run --rm --name coupage-react-sample -p 80:80 -p 443:443 coupage-react-sample:latest`
 
 ## Development

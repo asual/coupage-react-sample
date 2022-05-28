@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Rostislav Hristov
+ * Copyright (c) 2020-2022 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,26 +21,28 @@
  */
 
 import { createHash } from "crypto";
-import { existsSync, readFileSync } from "fs";
-import { basename, join, resolve } from "path";
+import { readFileSync } from "fs";
+import { basename, dirname, join, resolve } from "path";
 
+import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import GenerateJsonWebpackPlugin from "generate-json-webpack-plugin";
 import { sync } from "glob";
-import { EnvironmentPlugin, WebpackPluginInstance } from "webpack";
+import { Configuration, EnvironmentPlugin, WebpackPluginInstance } from "webpack";
+import { merge } from "webpack-merge";
 
-const interpolateName = (path: string) => {
-    const hash = createHash("md4").update(readFileSync(path)).digest("hex").substr(0, 8);
+function interpolateName(path: string) {
+    const hash = createHash("sha256").update(readFileSync(path)).digest("hex").substring(0, 8);
     return basename(path).replace(".", "." + hash + ".");
-};
-const findFile = (path: string, file: string): string => {
-    if (existsSync(join(path, file))) {
-        return join(path, file);
-    }
-    return findFile(join(path, ".."), file);
-};
-const readFile = (path: string) => JSON.parse(readFileSync(path).toString());
-const cleanPath = (path: string) => path.replace(/(\.\.|dist)\//g, "");
+}
+
+function readJsonFile(path: string) {
+    return JSON.parse(readFileSync(path, "utf-8"));
+}
+
+function cleanPath(path: string) {
+    return path.replace(/(\.\.|dist)\//g, "");
+}
 
 const commonIntlMap = sync("node_modules/common/intl/*.*", {
     cwd: __dirname,
@@ -57,22 +59,22 @@ const extensionResources = sync("../extensions/*/dist/*/*.*", {
 });
 
 const resources = extensionResources.reduce((acc: Record<string, Record<string, Record<string, unknown>>>, val) => {
-    const name = readFile(findFile(resolve(__dirname, val), "package.json")).name;
+    const extensionName = readJsonFile(resolve(join(__dirname, dirname(val), "../../package.json"))).name;
     const resourceFolder = basename(join(val, ".."));
     const resourceName = basename(val).split(".")[0];
     return {
         ...acc,
-        [name]: {
-            ...acc[name],
+        [extensionName]: {
+            ...acc[extensionName],
             [resourceFolder]: {
-                ...(acc[name] && acc[name][resourceFolder]),
+                ...(acc[extensionName] && acc[extensionName][resourceFolder]),
                 [resourceName]: join("/", cleanPath(val)),
             },
         },
     };
 }, {});
 
-export default {
+const commonConfiguration: Configuration = {
     plugins: [
         new CopyWebpackPlugin({
             patterns: [
@@ -100,3 +102,39 @@ export default {
         new GenerateJsonWebpackPlugin("resources.json", resources) as WebpackPluginInstance,
     ],
 };
+
+const developmentConfiguration: Configuration = {
+    module: {
+        rules: [
+            {
+                exclude: /node_modules/,
+                test: /\.tsx?$/,
+                use: [
+                    {
+                        loader: "swc-loader",
+                        options: {
+                            inlineSourcesContent: true,
+                            jsc: {
+                                parser: {
+                                    syntax: "typescript",
+                                    tsx: true,
+                                },
+                                transform: {
+                                    react: {
+                                        refresh: true,
+                                        runtime: "automatic",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                ],
+            },
+        ],
+    },
+    plugins: [new ReactRefreshWebpackPlugin()],
+};
+
+const isDevelopment = process.env.NODE_ENV === "development";
+
+export default merge(commonConfiguration, isDevelopment ? developmentConfiguration : {});

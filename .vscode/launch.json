@@ -1,0 +1,32 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "cwd": "${workspaceFolder}/application",
+      "type": "node",
+      "request": "launch",
+      "name": "Start application",
+      "runtimeExecutable": "npm",
+      "windows": {
+        "runtimeExecutable": "npm.cmd"
+      },
+      "runtimeArgs": ["run-script", "start"],
+      "stopOnEntry": true
+    },
+    {
+      "cwd": "${workspaceFolder}/extensions/pinot-blanc",
+      "type": "node",
+      "request": "launch",
+      "name": "Start Pinot Blanc extension",
+      "runtimeExecutable": "npm",
+      "windows": {
+        "runtimeExecutable": "npm.cmd"
+      },
+      "runtimeArgs": ["run-script", "start"],
+      "stopOnEntry": true
+    }
+  ]
+}

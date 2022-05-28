@@ -1,8 +1,7 @@
 {
     "pinotNoir.allResults": "Tous les résultats",
-    "pinotNoir.menu": "Pinot Noir",
+    "pinotNoir.navigation": "Pinot Noir",
+    "pinotNoir.subtitle": "Le pinot noir est un cépage de vin rouge de l'espèce Vitis vinifera. Le nom peut également désigner des vins créés principalement à partir de raisins de pinot noir. Le nom est dérivé des mots français pour le pin et le noir.",
     "pinotNoir.title": "Pinot Noir",
-    "pinotNoir.topResults": "Meilleurs résultats",
-    "pinotNoir.widgetSubtitle": "Le pinot noir est un cépage de vin rouge de l'espèce Vitis vinifera. Le nom peut également désigner des vins créés principalement à partir de raisins de pinot noir. Le nom est dérivé des mots français pour le pin et le noir.",
-    "pinotNoir.widgetTitle": "Pinot Noir"
+    "pinotNoir.topResults": "Meilleurs résultats"
 }

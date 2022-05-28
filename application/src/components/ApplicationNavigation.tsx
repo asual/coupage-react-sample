@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Rostislav Hristov
+ * Copyright (c) 2020-2022 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,24 +20,29 @@
  * SOFTWARE.
  */
 
-import { render } from "@testing-library/react";
-import { IntlProvider } from "react-intl";
-import { MemoryRouter } from "react-router";
+import { ExtensionPoint } from "@coupage/react";
+import { Home } from "@mui/icons-material";
+import { Drawer, List } from "@mui/material";
+import { extensionDefinitionTemplate, extensionPointNames } from "common";
+import { FormattedMessage } from "react-intl";
 
-import Content from "components/Content";
+import ApplicationNavigationItem from "components/ApplicationNavigationItem";
 
-test("Content", () => {
-    render(
-        <IntlProvider
-            locale="en"
-            messages={{
-                "application.documentTitle": "Test",
-                "application.menu": "Test Menu",
-            }}
-        >
-            <MemoryRouter>
-                <Content />
-            </MemoryRouter>
-        </IntlProvider>
+export default function ApplicationNavigation() {
+    return (
+        <Drawer variant="permanent">
+            <List>
+                <ApplicationNavigationItem
+                    icon={<Home />}
+                    label={<FormattedMessage defaultMessage="Home" id="application.navigation" />}
+                    path="/"
+                />
+                <ExtensionPoint name={extensionPointNames.navigation}>
+                    {({ icon, label, path }: typeof extensionDefinitionTemplate.navigation) => (
+                        <ApplicationNavigationItem icon={icon} label={label} path={path} />
+                    )}
+                </ExtensionPoint>
+            </List>
+        </Drawer>
     );
-});
+}

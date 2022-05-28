@@ -1,8 +1,7 @@
 {
     "pinotNoir.allResults": "All Results",
-    "pinotNoir.menu": "Pinot Noir",
+    "pinotNoir.navigation": "Pinot Noir",
+    "pinotNoir.subtitle": "Pinot noir is a red wine grape variety of the species Vitis vinifera. The name may also refer to wines created predominantly from Pinot noir grapes. The name is derived from the French words for pine and black.",
     "pinotNoir.title": "Pinot Noir",
-    "pinotNoir.topResults": "Top Results",
-    "pinotNoir.widgetSubtitle": "Pinot noir is a red wine grape variety of the species Vitis vinifera. The name may also refer to wines created predominantly from Pinot noir grapes. The name is derived from the French words for pine and black.",
-    "pinotNoir.widgetTitle": "Pinot Noir"
+    "pinotNoir.topResults": "Top Results"
 }

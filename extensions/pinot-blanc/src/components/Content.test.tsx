@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Rostislav Hristov
+ * Copyright (c) 2020-2022 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,13 +20,14 @@
  * SOFTWARE.
  */
 
-import { render } from "@testing-library/react";
+import { expect, test } from "@jest/globals";
+import { render, screen } from "@testing-library/react";
 import { IntlProvider } from "react-intl";
-import { MemoryRouter } from "react-router";
+import { MemoryRouter } from "react-router-dom";
 
 import Content from "components/Content";
 
-test("Content", () => {
+test("Content", async () => {
     render(
         <IntlProvider
             locale="en"
@@ -34,9 +35,10 @@ test("Content", () => {
                 "pinotBlanc.title": "Test",
             }}
         >
-            <MemoryRouter>
+            <MemoryRouter initialEntries={["/pinot-blanc"]}>
                 <Content />
             </MemoryRouter>
         </IntlProvider>
     );
+    expect(await screen.findByText("Test")).toBeDefined();
 });

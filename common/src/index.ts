@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Rostislav Hristov
+ * Copyright (c) 2020-2022 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,28 +20,24 @@
  * SOFTWARE.
  */
 
-import { render } from "@testing-library/react";
-import { Fragment } from "react";
-import { FormattedMessage, IntlProvider } from "react-intl";
-import { MemoryRouter } from "react-router";
+import { createExtensionPointDefinition, extractExtensionPointNames } from "@coupage/core";
+import { ReactElement } from "react";
+import { MessageDescriptor } from "react-intl";
 
-import NavigationItem from "components/NavigationItem";
+export const extensionDefinitionTemplate = {
+    card: createExtensionPointDefinition<{
+        component: () => ReactElement;
+        data: number;
+    }>(),
+    content: createExtensionPointDefinition<{
+        component: () => ReactElement;
+        path: string;
+    }>(),
+    navigation: createExtensionPointDefinition<{
+        icon: ReactElement;
+        label: ReactElement<MessageDescriptor>;
+        path: string;
+    }>(),
+};
 
-test("NavigationItem", () => {
-    render(
-        <IntlProvider
-            locale="en"
-            messages={{
-                "application.menu": "Test",
-            }}
-        >
-            <MemoryRouter>
-                <NavigationItem
-                    icon={<Fragment />}
-                    label={<FormattedMessage defaultMessage="Test" id="application.menu" />}
-                    path="/"
-                />
-            </MemoryRouter>
-        </IntlProvider>
-    );
-});
+export const extensionPointNames = extractExtensionPointNames(extensionDefinitionTemplate);

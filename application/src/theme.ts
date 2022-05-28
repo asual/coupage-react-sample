@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Rostislav Hristov
+ * Copyright (c) 2020-2022 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,21 +20,28 @@
  * SOFTWARE.
  */
 
-import { createMuiTheme, darken, lighten } from "@material-ui/core/styles";
+import { createTheme, darken, lighten } from "@mui/material";
 
-export const lightTheme = createMuiTheme({
+const lightBase = createTheme({
+    components: {
+        MuiButtonBase: {
+            defaultProps: {
+                disableRipple: true,
+            },
+        },
+    },
     palette: {
+        mode: "light",
         primary: {
             main: "#4762B9",
         },
-        type: "light",
     },
     typography: {
         body1: {
             fontSize: 14,
         },
         body2: {
-            fontSize: 12,
+            fontSize: 13,
         },
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
         h1: {
@@ -50,59 +57,83 @@ export const lightTheme = createMuiTheme({
     },
 });
 
-lightTheme.overrides = {
-    MuiAvatar: {
-        colorDefault: {
-            backgroundColor: lightTheme.palette.common.white,
-            color: lightTheme.palette.common.black,
-        },
-    },
-    MuiDrawer: {
-        paper: {
-            background: lightTheme.palette.primary.main,
-        },
-        root: {
-            width: lightTheme.spacing(8),
-        },
-    },
-    MuiList: {
-        padding: {
-            paddingBottom: 0,
-            paddingTop: 0,
-        },
-    },
-    MuiListItem: {
-        root: {
-            "& a": {
-                padding: lightTheme.spacing(2),
+export const light = createTheme(lightBase, {
+    components: {
+        MuiAvatar: {
+            styleOverrides: {
+                root: {
+                    color: lightBase.palette.common.white,
+                },
             },
-            paddingBottom: 0,
-            paddingLeft: 0,
-            paddingRight: 0,
-            paddingTop: 0,
         },
-    },
-    MuiListItemIcon: {
-        root: {
-            "& svg": {
-                height: lightTheme.spacing(4),
-                width: lightTheme.spacing(4),
+        MuiDrawer: {
+            styleOverrides: {
+                paper: {
+                    background: lightBase.palette.primary.main,
+                },
+                root: {
+                    width: lightBase.spacing(8),
+                },
             },
-            color: lightTheme.palette.common.white,
-            minWidth: lightTheme.spacing(4),
+        },
+        MuiList: {
+            styleOverrides: {
+                padding: {
+                    paddingBottom: 0,
+                    paddingTop: 0,
+                },
+            },
+        },
+        MuiListItem: {
+            styleOverrides: {
+                root: {
+                    "& a": {
+                        padding: lightBase.spacing(2),
+                    },
+                    "&.Mui-selected": {
+                        backgroundColor: darken(lightBase.palette.primary.main, 0.1),
+                    },
+                    "&.Mui-selected:hover": {
+                        backgroundColor: darken(lightBase.palette.primary.main, 0.1),
+                    },
+                    padding: 0,
+                    transition: "none",
+                },
+            },
+        },
+        MuiListItemIcon: {
+            styleOverrides: {
+                root: {
+                    "& svg": {
+                        display: "block",
+                        height: lightBase.spacing(4),
+                        width: lightBase.spacing(4),
+                    },
+                    color: lightBase.palette.common.white,
+                    display: "block",
+                    minWidth: lightBase.spacing(4),
+                },
+            },
         },
     },
-};
+});
 
-export const darkTheme = createMuiTheme({
+const darkBase = createTheme({
+    components: {
+        MuiButtonBase: {
+            defaultProps: {
+                disableRipple: true,
+            },
+        },
+    },
     palette: {
         background: {
-            default: "#202020",
+            default: "#282828",
         },
+        mode: "dark",
         primary: {
-            main: lighten("#4762B9", 0.5),
+            main: lighten("#4762B9", 0.2),
         },
-        type: "dark",
     },
     typography: {
         body1: {
@@ -125,49 +156,63 @@ export const darkTheme = createMuiTheme({
     },
 });
 
-darkTheme.overrides = {
-    MuiAvatar: {
-        colorDefault: {
-            backgroundColor: darkTheme.palette.background.default,
-            color: lightTheme.palette.common.white,
-        },
-    },
-    MuiDrawer: {
-        paper: {
-            backgroundColor: darken(darkTheme.palette.background.default, 0.2),
-        },
-        paperAnchorDockedLeft: {
-            borderRightColor: darken(darkTheme.palette.background.default, 0.1),
-        },
-        root: {
-            width: darkTheme.spacing(8),
-        },
-    },
-    MuiList: {
-        padding: {
-            paddingBottom: 0,
-            paddingTop: 0,
-        },
-    },
-    MuiListItem: {
-        root: {
-            "& a": {
-                padding: darkTheme.spacing(2),
+export const dark = createTheme(darkBase, {
+    components: {
+        MuiAvatar: {
+            styleOverrides: {
+                root: {
+                    color: darkBase.palette.common.white,
+                },
             },
-            paddingBottom: 0,
-            paddingLeft: 0,
-            paddingRight: 0,
-            paddingTop: 0,
         },
-    },
-    MuiListItemIcon: {
-        root: {
-            "& svg": {
-                height: darkTheme.spacing(4),
-                width: darkTheme.spacing(4),
+        MuiDrawer: {
+            styleOverrides: {
+                paper: {
+                    background: darkBase.palette.background.paper,
+                },
+                root: {
+                    width: darkBase.spacing(8),
+                },
             },
-            color: darkTheme.palette.common.white,
-            minWidth: darkTheme.spacing(4),
+        },
+        MuiList: {
+            styleOverrides: {
+                padding: {
+                    paddingBottom: 0,
+                    paddingTop: 0,
+                },
+            },
+        },
+        MuiListItem: {
+            styleOverrides: {
+                root: {
+                    "& a": {
+                        padding: darkBase.spacing(2),
+                    },
+                    "&.Mui-selected": {
+                        backgroundColor: lighten(darkBase.palette.background.paper, 0.15),
+                    },
+                    "&.Mui-selected:hover": {
+                        backgroundColor: lighten(darkBase.palette.background.paper, 0.15),
+                    },
+                    padding: 0,
+                    transition: "none",
+                },
+            },
+        },
+        MuiListItemIcon: {
+            styleOverrides: {
+                root: {
+                    "& svg": {
+                        display: "block",
+                        height: darkBase.spacing(4),
+                        width: darkBase.spacing(4),
+                    },
+                    color: darkBase.palette.common.white,
+                    display: "block",
+                    minWidth: darkBase.spacing(4),
+                },
+            },
         },
     },
-};
+});

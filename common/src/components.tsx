@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Rostislav Hristov
+ * Copyright (c) 2020-2022 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,19 +20,13 @@
  * SOFTWARE.
  */
 
-import { Fragment, memo } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { Typography } from "@mui/material";
+import { FormattedMessage } from "react-intl";
 
-const { documentTitle } = defineMessages({
-    documentTitle: {
-        defaultMessage: "Application",
-        id: "application.documentTitle",
-    },
-});
-
-export default memo(function Document() {
-    const intl = useIntl();
-    document.documentElement.lang = intl.locale;
-    document.title = intl.formatMessage(documentTitle);
-    return <Fragment />;
-});
+export function PageNotFound() {
+    return (
+        <Typography variant="h1">
+            <FormattedMessage defaultMessage="Page Not Found" id="common.pageNotFound" />
+        </Typography>
+    );
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Rostislav Hristov
+ * Copyright (c) 2020-2022 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,61 +22,43 @@
 
 import { createExtensionDefinition } from "@coupage/core";
 import { ExtensionComponent } from "@coupage/react";
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { Timeline } from "@material-ui/icons";
+import { Timeline } from "@mui/icons-material";
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Typography, useTheme } from "@mui/material";
 import { extensionDefinitionTemplate, extensionPointNames } from "common";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-    cardAvatar: {
-        background: "#4762B9",
-        color: theme.palette.background.default,
-    },
-    cardContent: {
-        minHeight: theme.spacing(20),
-    },
-}));
-
 export default createExtensionDefinition(extensionDefinitionTemplate, {
-    content: {
-        component: function Content() {
-            return <ExtensionComponent name={extensionPointNames.content} />;
-        },
-        path: "/pinot-noir",
-    },
-    navigation: {
-        icon: <Timeline />,
-        label: <FormattedMessage defaultMessage="Pinot Noir" id="pinotNoir.menu" />,
-        path: "/pinot-noir",
-    },
-    widget: {
-        component: function Widget() {
-            const classes = useStyles();
-            const intl = useIntl();
+    card: {
+        component: function CardContainer() {
+            const theme = useTheme();
             return (
                 <Card>
                     <CardHeader
                         avatar={
                             <Avatar
-                                aria-label={intl.formatMessage({ id: "pinotNoir.widgetTitle" })}
-                                className={classes.cardAvatar}
+                                sx={{
+                                    background: "#4762B9",
+                                }}
                             >
                                 <Timeline />
                             </Avatar>
                         }
                         title={
                             <Typography variant="h2">
-                                <FormattedMessage defaultMessage="Pinot Noir" id="pinotNoir.widgetTitle" />
+                                <FormattedMessage defaultMessage="Pinot Noir" id="pinotNoir.title" />
                             </Typography>
                         }
                     />
-                    <CardContent className={classes.cardContent}>
+                    <CardContent
+                        sx={{
+                            minHeight: theme.spacing(20),
+                        }}
+                    >
                         <Typography variant="body2">
                             <FormattedMessage
                                 defaultMessage="Pinot noir is a red wine grape variety of the species Vitis vinifera. The name may also refer to wines created predominantly from Pinot noir grapes. The name is derived from the French words for pine and black."
-                                id="pinotNoir.widgetSubtitle"
+                                id="pinotNoir.subtitle"
                             />
                         </Typography>
                     </CardContent>
@@ -91,5 +73,17 @@ export default createExtensionDefinition(extensionDefinitionTemplate, {
                 </Card>
             );
         },
+        data: 100,
+    },
+    content: {
+        component: function ContentContainer() {
+            return <ExtensionComponent name={extensionPointNames.content} />;
+        },
+        path: "/pinot-noir",
+    },
+    navigation: {
+        icon: <Timeline />,
+        label: <FormattedMessage defaultMessage="Pinot Noir" id="pinotNoir.navigation" />,
+        path: "/pinot-noir",
     },
 });
