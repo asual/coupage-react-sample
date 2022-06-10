@@ -70,7 +70,6 @@ export default function Content() {
                         </Typography>
                         <Box
                             sx={{
-                                height: 500,
                                 width: 500,
                             }}
                         >

@@ -22,7 +22,7 @@
 
 import { ExtensionPoint } from "@coupage/react";
 import { Brightness4, Brightness7 } from "@mui/icons-material";
-import { Box, Container, createTheme, IconButton, ThemeProvider } from "@mui/material";
+import { Box, Container, createTheme, GlobalStyles, IconButton, ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { extensionDefinitionTemplate, extensionPointNames } from "common";
 import { createElement, useEffect, useState } from "react";
@@ -45,6 +45,7 @@ export default function ApplicationContainer() {
     return (
         <ThemeProvider theme={createTheme({ ...theme })}>
             <CssBaseline />
+            <GlobalStyles styles={{ body: { minHeight: "100%" }, html: { height: "100%" } }} />
             <IconButton
                 aria-label={intl.formatMessage(
                     (<FormattedMessage defaultMessage="Switch theme" id="application.switchTheme" />).props
@@ -68,7 +69,7 @@ export default function ApplicationContainer() {
                 <ApplicationNavigation />
                 <Container
                     sx={{
-                        margin: 0,
+                        margin: theme.spacing(0, 0, 2),
                     }}
                 >
                     <ExtensionPoint
