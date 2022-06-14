@@ -1,6 +1,6 @@
 {
     "name": "common",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "author": "Rostislav Hristov <rostislav.hristov@gmail.com>",
     "license": "MIT",
     "private": true,
@@ -18,9 +18,11 @@
         "test": "jest"
     },
     "dependencies": {
-        "@coupage/core": "^0.2.1",
-        "@coupage/react": "^0.2.1",
-        "@mui/material": "^5.8.2",
+        "@coupage/core": "^0.2.2",
+        "@coupage/react": "^0.2.2",
+        "@emotion/react": "^11.9.3",
+        "@emotion/styled": "^11.9.3",
+        "@mui/material": "^5.8.4",
         "command-line-args": "^5.2.1",
         "glob": "^8.0.3",
         "react": "^18.1.0",
@@ -29,16 +31,14 @@
         "typescript-react-intl": "^0.4.1"
     },
     "devDependencies": {
-        "@emotion/react": "^11.9.0",
-        "@emotion/styled": "^11.8.1",
         "@swc/jest": "^0.2.21",
         "@testing-library/react": "^13.3.0",
         "@types/command-line-args": "^5.2.0",
         "@types/glob": "^7.2.0",
-        "@types/node": "^17.0.40",
+        "@types/node": "^17.0.42",
         "@types/react": "^18.0.12",
-        "@typescript-eslint/eslint-plugin": "^5.27.1",
-        "@typescript-eslint/parser": "^5.27.1",
+        "@typescript-eslint/eslint-plugin": "^5.28.0",
+        "@typescript-eslint/parser": "^5.28.0",
         "eslint": "^8.17.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-header": "^3.1.1",
@@ -50,7 +50,7 @@
         "jest": "^28.1.1",
         "jest-environment-jsdom": "^28.1.1",
         "jest-standard-reporter": "^2.0.0",
-        "prettier": "^2.6.2",
+        "prettier": "^2.7.0",
         "react-dom": "^18.1.0",
         "react-test-renderer": "^18.1.0",
         "ttypescript": "^1.5.13",
@@ -58,11 +58,11 @@
         "typescript-transform-paths": "^3.3.1"
     },
     "peerDependencies": {
-        "@coupage/core": "^0.2.1",
-        "@coupage/react": "^0.2.1",
-        "@emotion/react": "^11.9.0",
-        "@emotion/styled": "^11.8.1",
-        "@mui/material": "^5.8.2",
+        "@coupage/core": "^0.2.2",
+        "@coupage/react": "^0.2.2",
+        "@emotion/react": "^11.9.3",
+        "@emotion/styled": "^11.9.3",
+        "@mui/material": "^5.8.4",
         "react": "^18.1.0",
         "react-intl": "^6.0.4",
         "tslib": "^2.4.0"
