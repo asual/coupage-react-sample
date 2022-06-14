@@ -6,6 +6,10 @@ offers a built-in internationalization and a highly optimized production setup.
 
 Each of the provided sample packages can be independently built and extracted into a separate code repository.
 
+The sample application is deployed at https://coupage-react-sample-riuwn2qomq-uc.a.run.app
+([Lighthouse Report](https://github.com/asual/coupage-react-sample/blob/master/reports/lighthouse.pdf) &
+[Snyk Report](https://github.com/asual/coupage-react-sample/blob/master/reports/snyk.pdf)).
+
 ## Content
 
 The sample consits of the following main packages:
@@ -41,7 +45,7 @@ The sample ships with a deployment recipe that relies on Docker and nginx. It ac
 
 The following commands can be used for building and running the complete sample:
 
-- `DOCKER_BUILDKIT=1 docker build --rm --progress=plain -t coupage-react-sample:latest .`
+- `docker build --rm --progress=plain -t coupage-react-sample:latest .`
 - `docker run --rm --name coupage-react-sample -p 80:80 -p 443:443 coupage-react-sample:latest`
 
 ## Development
