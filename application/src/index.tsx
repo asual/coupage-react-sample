@@ -34,6 +34,10 @@ const locale =
         .find((val) => Object.keys(intlMap).includes(val)) || "en";
 const nonce = document.querySelector('meta[name="nonce"]')?.getAttribute("content")?.toString();
 
+if (nonce) {
+    __webpack_nonce__ = nonce;
+}
+
 const container = document.querySelector(".application");
 if (container) {
     const root = createRoot(container);
@@ -53,7 +57,7 @@ if (container) {
                                 import(/* webpackChunkName: "application" */ "components/Application"),
                                 fetch(commonIntlMap[locale]).then((data) => data.json()),
                                 fetch(intlMap[locale]).then((data) => data.json()),
-                                preloadResources(resources, locale),
+                                preloadResources(resources, locale, nonce),
                             ]).then(([application, commonMessages, messages]) => {
                                 clearTimeout(timeout);
                                 setApplicationElement(
