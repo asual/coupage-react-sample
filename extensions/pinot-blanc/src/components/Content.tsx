@@ -103,7 +103,10 @@ export default function Content() {
                         <Box
                             sx={{
                                 height: 500,
-                                width: 500,
+                                width: {
+                                    sm: 500,
+                                    xs: "100%",
+                                },
                             }}
                         >
                             <Paper>
@@ -134,7 +137,10 @@ export default function Content() {
                         <Box
                             sx={{
                                 height: 500,
-                                width: 500,
+                                width: {
+                                    sm: 500,
+                                    xs: "100%",
+                                },
                             }}
                         >
                             <Paper>

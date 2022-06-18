@@ -25,7 +25,7 @@ import { Brightness4, Brightness7 } from "@mui/icons-material";
 import { Box, Container, createTheme, GlobalStyles, IconButton, ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { extensionDefinitionTemplate, extensionPointNames } from "common";
-import { createElement, useEffect, useState } from "react";
+import { createElement, useCallback, useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
@@ -36,34 +36,29 @@ import { dark, light } from "theme";
 export default function ApplicationContainer() {
     const intl = useIntl();
     const location = useLocation();
-    const [theme, setTheme] = useState(localStorage.getItem("theme") === "dark" ? dark : light);
+    const [theme, setTheme] = useState(localStorage.getItem("theme") === "light" ? light : dark);
+
+    const handleClick = useCallback(() => {
+        setTheme(theme.palette.mode === "light" ? dark : light);
+    }, [theme]);
 
     useEffect(() => {
-        localStorage.setItem("theme", theme === light ? "light" : "dark");
+        localStorage.setItem("theme", theme.palette.mode);
     }, [theme]);
 
     return (
-        <ThemeProvider theme={createTheme({ ...theme })}>
+        <ThemeProvider theme={createTheme(theme)}>
             <CssBaseline />
-            <GlobalStyles styles={{ body: { minHeight: "100%" }, html: { height: "100%" } }} />
-            <IconButton
-                aria-label={intl.formatMessage(
-                    (<FormattedMessage defaultMessage="Switch theme" id="application.switchTheme" />).props
-                )}
-                onClick={() => {
-                    setTheme(theme === light ? dark : light);
-                }}
-                sx={{
-                    position: "absolute",
-                    right: theme.spacing(2),
-                    top: theme.spacing(1),
-                }}
-            >
-                {theme === light ? <Brightness4 /> : <Brightness7 />}
-            </IconButton>
+            <GlobalStyles
+                styles={{ body: { minHeight: "100%" }, html: { height: "100%" }, main: { minHeight: "100%" } }}
+            />
             <Box
                 sx={{
                     display: "flex",
+                    flexDirection: {
+                        sm: "row",
+                        xs: "column",
+                    },
                 }}
             >
                 <ApplicationNavigation />
@@ -72,6 +67,22 @@ export default function ApplicationContainer() {
                         margin: theme.spacing(0, 0, 2),
                     }}
                 >
+                    <IconButton
+                        aria-label={intl.formatMessage(
+                            (<FormattedMessage defaultMessage="Switch theme" id="application.switchTheme" />).props
+                        )}
+                        onClick={handleClick}
+                        sx={{
+                            position: "absolute",
+                            right: {
+                                sm: theme.spacing(2),
+                                xs: theme.spacing(1),
+                            },
+                            top: theme.spacing(1),
+                        }}
+                    >
+                        {theme === light ? <Brightness4 /> : <Brightness7 />}
+                    </IconButton>
                     <ExtensionPoint
                         fallback={<ApplicationContent />}
                         filter={({ path }) => location.pathname.startsWith(path)}

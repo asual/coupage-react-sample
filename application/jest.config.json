@@ -7,6 +7,7 @@
     "moduleDirectories": ["<rootDir>/src", "node_modules"],
     "moduleFileExtensions": ["cjs", "js", "json", "mjs", "ts", "tsx"],
     "reporters": ["jest-standard-reporter"],
+    "setupFilesAfterEnv": ["<rootDir>/jest.setup.ts"],
     "testEnvironment": "jsdom",
     "testMatch": ["<rootDir>/src/**/*.test.{ts,tsx}"],
     "transform": {

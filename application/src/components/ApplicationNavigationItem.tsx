@@ -20,8 +20,8 @@
  * SOFTWARE.
  */
 
-import { ListItem, ListItemIcon, Tooltip } from "@mui/material";
-import { ReactElement } from "react";
+import { Hidden, ListItem, ListItemIcon, ListItemText, Tooltip } from "@mui/material";
+import { Fragment, ReactElement } from "react";
 import { MessageDescriptor, useIntl } from "react-intl";
 import { Link, useMatch } from "react-router-dom";
 
@@ -39,12 +39,24 @@ export default function ApplicationNavigationItem({ icon, label, path }: Applica
     });
 
     return (
-        <Tooltip placement="right" title={label}>
-            <ListItem selected={!!routeMatch}>
-                <Link aria-label={intl.formatMessage({ id: label.props.id })} to={path}>
-                    <ListItemIcon>{icon}</ListItemIcon>
-                </Link>
-            </ListItem>
-        </Tooltip>
+        <Fragment>
+            <Hidden smDown>
+                <Tooltip placement="right" title={label}>
+                    <ListItem selected={!!routeMatch}>
+                        <Link aria-label={intl.formatMessage({ id: label.props.id })} to={path}>
+                            <ListItemIcon>{icon}</ListItemIcon>
+                        </Link>
+                    </ListItem>
+                </Tooltip>
+            </Hidden>
+            <Hidden smUp>
+                <ListItem selected={!!routeMatch}>
+                    <Link aria-label={intl.formatMessage({ id: label.props.id })} to={path}>
+                        <ListItemIcon>{icon}</ListItemIcon>
+                        <ListItemText primary={label} />
+                    </Link>
+                </ListItem>
+            </Hidden>
+        </Fragment>
     );
 }

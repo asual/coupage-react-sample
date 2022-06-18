@@ -121,6 +121,7 @@ const developmentConfiguration: Configuration = {
                                 },
                                 transform: {
                                     react: {
+                                        development: true,
                                         refresh: true,
                                         runtime: "automatic",
                                     },

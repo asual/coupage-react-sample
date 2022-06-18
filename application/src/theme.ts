@@ -20,59 +20,40 @@
  * SOFTWARE.
  */
 
-import { createTheme, darken, lighten } from "@mui/material";
+import { alpha, createTheme, darken, lighten } from "@mui/material";
 
-const lightBase = createTheme({
+const color = "#4762B9";
+const theme = createTheme();
+
+export const light = createTheme({
     components: {
+        MuiAvatar: {
+            styleOverrides: {
+                root: {
+                    color: theme.palette.common.white,
+                },
+            },
+        },
+        MuiBackdrop: {
+            styleOverrides: {
+                root: {
+                    background: alpha(theme.palette.common.white, 0.5),
+                },
+            },
+        },
         MuiButtonBase: {
             defaultProps: {
                 disableRipple: true,
             },
         },
-    },
-    palette: {
-        mode: "light",
-        primary: {
-            main: "#4762B9",
-        },
-    },
-    typography: {
-        body1: {
-            fontSize: 14,
-        },
-        body2: {
-            fontSize: 13,
-        },
-        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
-        h1: {
-            fontSize: 28,
-            fontWeight: 500,
-            marginBottom: 16,
-            marginTop: 16,
-        },
-        h2: {
-            fontSize: 24,
-            fontWeight: 500,
-        },
-    },
-});
-
-export const light = createTheme(lightBase, {
-    components: {
-        MuiAvatar: {
-            styleOverrides: {
-                root: {
-                    color: lightBase.palette.common.white,
-                },
-            },
-        },
         MuiDrawer: {
             styleOverrides: {
                 paper: {
-                    background: lightBase.palette.primary.main,
+                    background: color,
+                    borderColor: color,
                 },
                 root: {
-                    width: lightBase.spacing(8),
+                    width: theme.spacing(8),
                 },
             },
         },
@@ -88,16 +69,22 @@ export const light = createTheme(lightBase, {
             styleOverrides: {
                 root: {
                     "& a": {
-                        padding: lightBase.spacing(2),
+                        color: theme.palette.common.white,
+                        display: "flex",
+                        padding: theme.spacing(2),
+                        textDecoration: "none",
                     },
                     "&.Mui-selected": {
-                        backgroundColor: darken(lightBase.palette.primary.main, 0.1),
+                        background: darken(color, 0.2),
                     },
                     "&.Mui-selected:hover": {
-                        backgroundColor: darken(lightBase.palette.primary.main, 0.1),
+                        background: darken(color, 0.2),
                     },
+                    "&:hover": {
+                        background: darken(color, 0.1),
+                    },
+                    display: "block",
                     padding: 0,
-                    transition: "none",
                 },
             },
         },
@@ -106,33 +93,48 @@ export const light = createTheme(lightBase, {
                 root: {
                     "& svg": {
                         display: "block",
-                        height: lightBase.spacing(4),
-                        width: lightBase.spacing(4),
+                        height: theme.spacing(4),
+                        width: theme.spacing(4),
                     },
-                    color: lightBase.palette.common.white,
+                    color: theme.palette.common.white,
                     display: "block",
-                    minWidth: lightBase.spacing(4),
+                    minWidth: theme.spacing(4),
                 },
             },
         },
-    },
-});
-
-const darkBase = createTheme({
-    components: {
-        MuiButtonBase: {
-            defaultProps: {
-                disableRipple: true,
+        MuiListItemText: {
+            styleOverrides: {
+                primary: {
+                    fontSize: theme.typography.body2.fontSize,
+                    padding: theme.spacing(0.25, 8, 0.25, 2),
+                },
+            },
+        },
+        MuiPaper: {
+            styleOverrides: {
+                root: {
+                    background: theme.palette.common.white,
+                },
+            },
+        },
+        MuiTableCell: {
+            styleOverrides: {
+                root: {
+                    [theme.breakpoints.down("sm")]: {
+                        padding: theme.spacing(1.2),
+                    },
+                    padding: theme.spacing(2),
+                },
             },
         },
     },
     palette: {
         background: {
-            default: "#282828",
+            default: lighten(color, 0.98),
         },
-        mode: "dark",
+        mode: "light",
         primary: {
-            main: lighten("#4762B9", 0.2),
+            main: color,
         },
     },
     typography: {
@@ -146,8 +148,7 @@ const darkBase = createTheme({
         h1: {
             fontSize: 28,
             fontWeight: 500,
-            marginBottom: 16,
-            marginTop: 16,
+            margin: theme.spacing(2, 0),
         },
         h2: {
             fontSize: 24,
@@ -156,22 +157,35 @@ const darkBase = createTheme({
     },
 });
 
-export const dark = createTheme(darkBase, {
+export const dark = createTheme({
     components: {
         MuiAvatar: {
             styleOverrides: {
                 root: {
-                    color: darkBase.palette.common.white,
+                    color: theme.palette.common.white,
                 },
+            },
+        },
+        MuiBackdrop: {
+            styleOverrides: {
+                root: {
+                    background: alpha(theme.palette.common.white, 0.1),
+                },
+            },
+        },
+        MuiButtonBase: {
+            defaultProps: {
+                disableRipple: true,
             },
         },
         MuiDrawer: {
             styleOverrides: {
                 paper: {
-                    background: darkBase.palette.background.paper,
+                    background: darken(color, 0.88),
+                    borderColor: darken(color, 0.88),
                 },
                 root: {
-                    width: darkBase.spacing(8),
+                    width: theme.spacing(8),
                 },
             },
         },
@@ -187,13 +201,19 @@ export const dark = createTheme(darkBase, {
             styleOverrides: {
                 root: {
                     "& a": {
-                        padding: darkBase.spacing(2),
+                        color: theme.palette.common.white,
+                        display: "flex",
+                        padding: theme.spacing(2),
+                        textDecoration: "none",
                     },
                     "&.Mui-selected": {
-                        backgroundColor: lighten(darkBase.palette.background.paper, 0.15),
+                        background: theme.palette.common.black,
                     },
                     "&.Mui-selected:hover": {
-                        backgroundColor: lighten(darkBase.palette.background.paper, 0.15),
+                        background: theme.palette.common.black,
+                    },
+                    "&:hover": {
+                        background: darken(color, 0.92),
                     },
                     padding: 0,
                     transition: "none",
@@ -205,14 +225,67 @@ export const dark = createTheme(darkBase, {
                 root: {
                     "& svg": {
                         display: "block",
-                        height: darkBase.spacing(4),
-                        width: darkBase.spacing(4),
+                        height: theme.spacing(4),
+                        width: theme.spacing(4),
                     },
-                    color: darkBase.palette.common.white,
+                    color: theme.palette.common.white,
                     display: "block",
-                    minWidth: darkBase.spacing(4),
+                    minWidth: theme.spacing(4),
                 },
             },
+        },
+        MuiListItemText: {
+            styleOverrides: {
+                primary: {
+                    fontSize: theme.typography.body2.fontSize,
+                    padding: theme.spacing(0.25, 8, 0.25, 2),
+                },
+            },
+        },
+        MuiPaper: {
+            styleOverrides: {
+                root: {
+                    background: darken(color, 0.9),
+                },
+            },
+        },
+        MuiTableCell: {
+            styleOverrides: {
+                root: {
+                    [theme.breakpoints.down("sm")]: {
+                        padding: theme.spacing(1.2),
+                    },
+                    padding: theme.spacing(2),
+                },
+            },
+        },
+    },
+    palette: {
+        background: {
+            default: darken(color, 0.82),
+            paper: darken(color, 0.82),
+        },
+        mode: "dark",
+        primary: {
+            main: color,
+        },
+    },
+    typography: {
+        body1: {
+            fontSize: 14,
+        },
+        body2: {
+            fontSize: 12,
+        },
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+        h1: {
+            fontSize: 28,
+            fontWeight: 500,
+            margin: theme.spacing(2, 0),
+        },
+        h2: {
+            fontSize: 24,
+            fontWeight: 500,
         },
     },
 });

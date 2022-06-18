@@ -42,7 +42,11 @@ export default function ApplicationContent() {
                     <Fragment>
                         <Typography
                             sx={{
-                                fontSize: theme.spacing(6),
+                                fontSize: {
+                                    sm: theme.spacing(6),
+                                    xs: theme.spacing(4),
+                                },
+                                marginRight: theme.spacing(6),
                             }}
                             variant="h1"
                         >

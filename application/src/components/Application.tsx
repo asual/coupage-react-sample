@@ -43,7 +43,7 @@ export default function Application({ locale, messages, nonce, resources }: Appl
     const cache = useMemo(
         () =>
             createCache({
-                key: "css",
+                key: "coupage",
                 nonce,
             }),
         [nonce]

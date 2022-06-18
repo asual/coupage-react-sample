@@ -50,7 +50,7 @@ export const createLoadingElement = (nonce?: string) => {
         }
         .spinner {
             animation: rotate 1.4s linear infinite;
-            color: #3f51b5;
+            color: #4762B9;
             display: inline-block;
             height: 40px;
             width: 40px;

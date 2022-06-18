@@ -70,7 +70,10 @@ export default function Content() {
                         </Typography>
                         <Box
                             sx={{
-                                width: 500,
+                                width: {
+                                    sm: 500,
+                                    xs: "100%",
+                                },
                             }}
                         >
                             <Paper>
@@ -126,8 +129,10 @@ export default function Content() {
                         </Typography>
                         <Box
                             sx={{
-                                height: 500,
-                                width: 500,
+                                width: {
+                                    sm: 500,
+                                    xs: "100%",
+                                },
                             }}
                         >
                             <Paper>

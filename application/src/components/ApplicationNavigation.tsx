@@ -21,28 +21,77 @@
  */
 
 import { ExtensionPoint } from "@coupage/react";
-import { Home } from "@mui/icons-material";
-import { Drawer, List } from "@mui/material";
+import { Home, Menu } from "@mui/icons-material";
+import { Box, Drawer, Hidden, IconButton, List, useTheme } from "@mui/material";
 import { extensionDefinitionTemplate, extensionPointNames } from "common";
-import { FormattedMessage } from "react-intl";
+import { Fragment, KeyboardEvent, MouseEvent, useCallback, useState } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import ApplicationNavigationItem from "components/ApplicationNavigationItem";
 
 export default function ApplicationNavigation() {
+    const intl = useIntl();
+    const theme = useTheme();
+
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
+    const handleDrawer = useCallback(
+        (open: boolean) => (event: KeyboardEvent | MouseEvent) => {
+            if ((event as KeyboardEvent)?.key === "Tab" || (event as KeyboardEvent)?.key === "Shift") {
+                return;
+            }
+            setDrawerOpen(open);
+        },
+        []
+    );
+
     return (
-        <Drawer variant="permanent">
-            <List>
-                <ApplicationNavigationItem
-                    icon={<Home />}
-                    label={<FormattedMessage defaultMessage="Home" id="application.navigation" />}
-                    path="/"
-                />
-                <ExtensionPoint name={extensionPointNames.navigation}>
-                    {({ icon, label, path }: typeof extensionDefinitionTemplate.navigation) => (
-                        <ApplicationNavigationItem icon={icon} label={label} path={path} />
-                    )}
-                </ExtensionPoint>
-            </List>
-        </Drawer>
+        <Fragment>
+            <Hidden smDown>
+                <Drawer variant="permanent">
+                    <List>
+                        <ApplicationNavigationItem
+                            icon={<Home />}
+                            label={<FormattedMessage defaultMessage="Home" id="application.navigation" />}
+                            path="/"
+                        />
+                        <ExtensionPoint name={extensionPointNames.navigation}>
+                            {({ icon, label, path }: typeof extensionDefinitionTemplate.navigation) => (
+                                <ApplicationNavigationItem icon={icon} label={label} path={path} />
+                            )}
+                        </ExtensionPoint>
+                    </List>
+                </Drawer>
+            </Hidden>
+            <Hidden smUp>
+                <Box sx={{ margin: theme.spacing(1) }}>
+                    <IconButton
+                        aria-label={intl.formatMessage(
+                            (<FormattedMessage defaultMessage="Open Navigation" id="application.openNavigation" />)
+                                .props
+                        )}
+                        onClick={handleDrawer(true)}
+                    >
+                        <Menu />
+                    </IconButton>
+                </Box>
+                <Drawer open={drawerOpen} onClose={handleDrawer(false)}>
+                    <Box role="presentation" onClick={handleDrawer(false)} onKeyDown={handleDrawer(false)}>
+                        <List>
+                            <ApplicationNavigationItem
+                                icon={<Home />}
+                                label={<FormattedMessage defaultMessage="Home" id="application.navigation" />}
+                                path="/"
+                            />
+                            <ExtensionPoint name={extensionPointNames.navigation}>
+                                {({ icon, label, path }: typeof extensionDefinitionTemplate.navigation) => (
+                                    <ApplicationNavigationItem icon={icon} label={label} path={path} />
+                                )}
+                            </ExtensionPoint>
+                        </List>
+                    </Box>
+                </Drawer>
+            </Hidden>
+        </Fragment>
     );
 }
