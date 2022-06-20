@@ -1,5 +1,5 @@
 {
-    "background_color": "#ffffff",
+    "background_color": "#FFFFFF",
     "display": "standalone",
     "icons": [
         {
@@ -15,8 +15,8 @@
             "purpose": "any maskable"
         }
     ],
-    "name": "Application",
-    "short_name": "Application",
+    "name": "Coupage Showcase",
+    "short_name": "Coupage",
     "start_url": "/",
-    "theme_color": "#000000"
+    "theme_color": "#FFFFFF"
 }
