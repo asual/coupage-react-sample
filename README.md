@@ -6,9 +6,14 @@ offers a built-in internationalization and a highly optimized production setup.
 
 Each of the provided sample packages can be independently built and extracted into a separate code repository.
 
-The sample application is deployed at https://coupage.asual.com
-([Lighthouse Report](https://github.com/asual/coupage-react-sample/blob/master/reports/lighthouse.pdf) &
-[Snyk Report](https://github.com/asual/coupage-react-sample/blob/master/reports/snyk.pdf)).
+> **Note**
+>
+> Check the [sample deployment](https://coupage.asual.com) of the source code in this repository.
+>
+> Performance Report:
+> [coupage-react-sample/blob/master/reports/lighthouse.pdf](https://github.com/asual/coupage-react-sample/blob/master/reports/lighthouse.pdf)\
+> Security Report:
+> [coupage-react-sample/blob/master/reports/snyk.pdf](https://github.com/asual/coupage-react-sample/blob/master/reports/snyk.pdf)
 
 ## Content
 
