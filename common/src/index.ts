@@ -24,20 +24,26 @@ import { createExtensionPointDefinition, extractExtensionPointNames } from "@cou
 import { ReactElement } from "react";
 import { MessageDescriptor } from "react-intl";
 
+export interface Card {
+    component: () => ReactElement;
+    data: number;
+}
+
+export interface Content {
+    component: () => ReactElement;
+    path: string;
+}
+
+export interface Navigation {
+    icon: ReactElement;
+    label: ReactElement<MessageDescriptor>;
+    path: string;
+}
+
 export const extensionDefinitionTemplate = {
-    card: createExtensionPointDefinition<{
-        component: () => ReactElement;
-        data: number;
-    }>(),
-    content: createExtensionPointDefinition<{
-        component: () => ReactElement;
-        path: string;
-    }>(),
-    navigation: createExtensionPointDefinition<{
-        icon: ReactElement;
-        label: ReactElement<MessageDescriptor>;
-        path: string;
-    }>(),
+    card: createExtensionPointDefinition<Card>(),
+    content: createExtensionPointDefinition<Content>(),
+    navigation: createExtensionPointDefinition<Navigation>(),
 };
 
 export const extensionPointNames = extractExtensionPointNames(extensionDefinitionTemplate);

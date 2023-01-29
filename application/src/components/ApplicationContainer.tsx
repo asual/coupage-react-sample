@@ -24,7 +24,7 @@ import { ExtensionPoint } from "@coupage/react";
 import { Brightness4, Brightness7 } from "@mui/icons-material";
 import { Box, Container, createTheme, GlobalStyles, IconButton, ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
-import { extensionDefinitionTemplate, extensionPointNames } from "common";
+import { Content, extensionPointNames } from "common";
 import { createElement, useCallback, useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
@@ -88,7 +88,7 @@ export default function ApplicationContainer() {
                         filter={({ path }) => location.pathname.startsWith(path)}
                         name={extensionPointNames.content}
                     >
-                        {({ component }: typeof extensionDefinitionTemplate.content) => createElement(component)}
+                        {({ component }: Content) => createElement(component)}
                     </ExtensionPoint>
                 </Container>
             </Box>

@@ -28,10 +28,8 @@ import { createLoadingElement } from "loading";
 
 const commonIntlMap = Object.fromEntries(process.env.COMMON_INTL_MAP as Iterable<[]>) as Record<string, string>;
 const intlMap = Object.fromEntries(process.env.INTL_MAP as Iterable<[]>) as Record<string, string>;
-const locale =
-    navigator.languages
-        .flatMap((val) => [...new Set([val, val.split("-")[0]])])
-        .find((val) => Object.keys(intlMap).includes(val)) || "en";
+const language = navigator.languages.find((val) => Object.keys(intlMap).includes(val)) || "en";
+const locale = navigator.languages.find((val) => val.startsWith(language)) || "en";
 const nonce = document.querySelector('meta[name="nonce"]')?.getAttribute("content")?.toString();
 
 if (nonce) {
@@ -55,13 +53,14 @@ if (container) {
                         .then((resources) =>
                             Promise.all([
                                 import(/* webpackChunkName: "application" */ "components/Application"),
-                                fetch(commonIntlMap[locale]).then((data) => data.json()),
-                                fetch(intlMap[locale]).then((data) => data.json()),
-                                preloadResources(resources, locale, nonce),
+                                fetch(commonIntlMap[language]).then((data) => data.json()),
+                                fetch(intlMap[language]).then((data) => data.json()),
+                                preloadResources(resources, language, nonce),
                             ]).then(([application, commonMessages, messages]) => {
                                 clearTimeout(timeout);
                                 setApplicationElement(
                                     createElement(application.default, {
+                                        language,
                                         locale,
                                         messages: {
                                             ...commonMessages,

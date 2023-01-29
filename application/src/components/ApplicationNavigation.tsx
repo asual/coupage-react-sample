@@ -23,7 +23,7 @@
 import { ExtensionPoint } from "@coupage/react";
 import { Home, Menu } from "@mui/icons-material";
 import { Box, Drawer, Hidden, IconButton, List, useTheme } from "@mui/material";
-import { extensionDefinitionTemplate, extensionPointNames } from "common";
+import { extensionPointNames, Navigation } from "common";
 import { Fragment, KeyboardEvent, MouseEvent, useCallback, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -56,7 +56,7 @@ export default function ApplicationNavigation() {
                             path="/"
                         />
                         <ExtensionPoint name={extensionPointNames.navigation}>
-                            {({ icon, label, path }: typeof extensionDefinitionTemplate.navigation) => (
+                            {({ icon, label, path }: Navigation) => (
                                 <ApplicationNavigationItem icon={icon} label={label} path={path} />
                             )}
                         </ExtensionPoint>
@@ -84,7 +84,7 @@ export default function ApplicationNavigation() {
                                 path="/"
                             />
                             <ExtensionPoint name={extensionPointNames.navigation}>
-                                {({ icon, label, path }: typeof extensionDefinitionTemplate.navigation) => (
+                                {({ icon, label, path }: Navigation) => (
                                     <ApplicationNavigationItem icon={icon} label={label} path={path} />
                                 )}
                             </ExtensionPoint>

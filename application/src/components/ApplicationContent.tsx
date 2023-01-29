@@ -23,7 +23,7 @@
 import { ExtensionPoint } from "@coupage/react";
 import { Sort } from "@mui/icons-material";
 import { Box, Grid, IconButton, Typography, useTheme } from "@mui/material";
-import { extensionDefinitionTemplate, extensionPointNames } from "common";
+import { Card, extensionPointNames } from "common";
 import { PageNotFound } from "common/components";
 import { PAGE_NOT_FOUND_PATH } from "common/constants";
 import { createElement, Fragment, useState } from "react";
@@ -86,7 +86,7 @@ export default function ApplicationContent() {
                                 name={extensionPointNames.card}
                                 sort={(a, b) => (sort ? b.data - a.data : a.data - b.data)}
                             >
-                                {({ component }: typeof extensionDefinitionTemplate.card) => (
+                                {({ component }: Card) => (
                                     <Grid item sm={12} md={6} lg={4}>
                                         {createElement(component)}
                                     </Grid>

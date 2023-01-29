@@ -33,13 +33,14 @@ import ApplicationTitle from "components/ApplicationTitle";
 import { dependencies } from "dependencies";
 
 interface ApplicationProps {
+    language?: string;
     locale: string;
     messages: Record<string, string>;
     nonce?: string;
     resources: Record<string, ExtensionResources>;
 }
 
-export default function Application({ locale, messages, nonce, resources }: ApplicationProps) {
+export default function Application({ language, locale, messages, nonce, resources }: ApplicationProps) {
     const cache = useMemo(
         () =>
             createCache({
@@ -52,7 +53,12 @@ export default function Application({ locale, messages, nonce, resources }: Appl
         <BrowserRouter>
             <IntlProvider defaultLocale="en" locale={locale} messages={messages}>
                 <CacheProvider value={cache}>
-                    <ExtensionProvider dependencies={dependencies} nonce={nonce} resources={resources}>
+                    <ExtensionProvider
+                        dependencies={dependencies}
+                        language={language}
+                        nonce={nonce}
+                        resources={resources}
+                    >
                         <ApplicationTitle />
                         <ApplicationContainer />
                     </ExtensionProvider>

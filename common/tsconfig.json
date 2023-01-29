@@ -19,7 +19,7 @@
         "paths": {
             "*": ["*"]
         },
-        "plugins": [{ "transform": "typescript-transform-paths", "exclude": ["**/node_modules/**"] }],
+        "plugins": [{ "exclude": ["**/node_modules/**"], "transform": "typescript-transform-paths" }],
         "resolveJsonModule": true,
         "skipLibCheck": true,
         "strict": true,
