@@ -75,8 +75,8 @@ export default function ApplicationNavigation() {
                         <Menu />
                     </IconButton>
                 </Box>
-                <Drawer open={drawerOpen} onClose={handleDrawer(false)}>
-                    <Box role="presentation" onClick={handleDrawer(false)} onKeyDown={handleDrawer(false)}>
+                <Drawer onClose={handleDrawer(false)} open={drawerOpen}>
+                    <Box onClick={handleDrawer(false)} onKeyDown={handleDrawer(false)} role="presentation">
                         <List>
                             <ApplicationNavigationItem
                                 icon={<Home />}

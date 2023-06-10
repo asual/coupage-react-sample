@@ -181,7 +181,7 @@ export default function Content() {
                 path="/pinot-gris/top"
             />
             <Route element={<PageNotFound />} path={PAGE_NOT_FOUND_PATH} />
-            <Route path="*" element={<Navigate to={PAGE_NOT_FOUND_PATH} replace />} />
+            <Route element={<Navigate replace to={PAGE_NOT_FOUND_PATH} />} path="*" />
         </Routes>
     );
 }

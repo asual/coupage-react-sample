@@ -31,8 +31,8 @@ export const dependencies = {
     "common/components": require("common/components"),
     "common/constants": require("common/constants"),
     react: require("react"),
+    "react/jsx-runtime": require("react/jsx-runtime"),
     "react-intl": require("react-intl"),
     "react-router-dom": require("react-router-dom"),
-    "react/jsx-runtime": require("react/jsx-runtime"),
     tslib: require("tslib"),
 } as Record<string, unknown>;

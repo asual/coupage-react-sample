@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2022 Rostislav Hristov
+ * Copyright (c) 2020-2023 Rostislav Hristov
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -169,7 +169,7 @@ export default function Content() {
                 path="/pinot-noir/top"
             />
             <Route element={<PageNotFound />} path={PAGE_NOT_FOUND_PATH} />
-            <Route path="*" element={<Navigate to={PAGE_NOT_FOUND_PATH} replace />} />
+            <Route element={<Navigate replace to={PAGE_NOT_FOUND_PATH} />} path="*" />
         </Routes>
     );
 }

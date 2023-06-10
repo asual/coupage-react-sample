@@ -87,7 +87,7 @@ export default function ApplicationContent() {
                                 sort={(a, b) => (sort ? b.data - a.data : a.data - b.data)}
                             >
                                 {({ component }: Card) => (
-                                    <Grid item sm={12} md={6} lg={4}>
+                                    <Grid item lg={4} md={6} sm={12}>
                                         {createElement(component)}
                                     </Grid>
                                 )}
@@ -98,7 +98,7 @@ export default function ApplicationContent() {
                 path="/"
             />
             <Route element={<PageNotFound />} path={PAGE_NOT_FOUND_PATH} />
-            <Route path="*" element={<Navigate to={PAGE_NOT_FOUND_PATH} replace />} />
+            <Route element={<Navigate replace to={PAGE_NOT_FOUND_PATH} />} path="*" />
         </Routes>
     );
 }

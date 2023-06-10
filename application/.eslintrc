@@ -12,7 +12,8 @@
         "plugin:import/typescript",
         "plugin:prettier/recommended",
         "plugin:react/recommended",
-        "plugin:testing-library/react"
+        "plugin:testing-library/react",
+        "plugin:typescript-sort-keys/recommended"
     ],
     "ignorePatterns": ["dist", "node_modules"],
     "parser": "@typescript-eslint/parser",
@@ -22,7 +23,7 @@
             "jsx": true
         }
     },
-    "plugins": ["header", "import", "prettier", "react", "react-hooks", "testing-library"],
+    "plugins": ["header", "import", "prettier", "react", "react-hooks", "testing-library", "typescript-sort-keys"],
     "rules": {
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
@@ -60,11 +61,19 @@
         "no-console": "warn",
         "no-shadow": "error",
         "no-tabs": "error",
+        "react/jsx-sort-props": "error",
         "react/prop-types": "off",
         "react/react-in-jsx-scope": "off",
         "react-hooks/exhaustive-deps": "error",
         "react-hooks/rules-of-hooks": "error",
-        "sort-keys": "error"
+        "sort-keys": [
+            "warn",
+            "asc",
+            {
+                "allowLineSeparatedGroups": true,
+                "natural": true
+            }
+        ]
     },
     "settings": {
         "import/resolver": {
