@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-export const createLoadingElement = (nonce?: string) => {
+export const createLoadingElement = (container: Element, nonce?: string) => {
     const style = document.createElement("style");
     if (nonce) {
         style.setAttribute("nonce", nonce);
@@ -57,25 +57,26 @@ export const createLoadingElement = (nonce?: string) => {
         }
         .spinner-container {
             display: flex;
-            position: absolute;
             padding: 12px;
+            position: absolute;
             z-index: 9999;
         }
         .spinner-content {
             animation: circular-dash 1.4s ease-in-out infinite;
             stroke: currentColor;
-            strokeDasharray: 80px, 200px;
-            strokeDashoffset: 0;
+            stroke-dasharray: 80px, 200px;
+            stroke-dashoffset: 0;
         }
     `;
     document.head.appendChild(style);
-    return (
-        <div className="spinner-container">
-            <div className="spinner">
-                <svg viewBox="22 22 44 44">
-                    <circle className="spinner-content" cx="44" cy="44" r="20.2" fill="none" strokeWidth="3.6" />
-                </svg>
-            </div>
+    const div = document.createElement("div");
+    div.className = "spinner-container";
+    div.innerHTML = `
+        <div class="spinner">
+            <svg viewBox="22 22 44 44">
+                <circle class="spinner-content" cx="44" cy="44" fill="none" r="20.2" stroke-width="3.6" />
+            </svg>
         </div>
-    );
+    `;
+    container.appendChild(div);
 };

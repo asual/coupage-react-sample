@@ -24,7 +24,7 @@ import { ExtensionResources } from "@coupage/core";
 import { ExtensionProvider } from "@coupage/react";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
-import { useMemo } from "react";
+import { StrictMode, useMemo } from "react";
 import { IntlProvider } from "react-intl";
 import { BrowserRouter } from "react-router-dom";
 
@@ -50,20 +50,22 @@ export default function Application({ language, locale, messages, nonce, resourc
         [nonce]
     );
     return (
-        <BrowserRouter>
-            <IntlProvider defaultLocale="en" locale={locale} messages={messages}>
-                <CacheProvider value={cache}>
-                    <ExtensionProvider
-                        dependencies={dependencies}
-                        language={language}
-                        nonce={nonce}
-                        resources={resources}
-                    >
-                        <ApplicationTitle />
-                        <ApplicationContainer />
-                    </ExtensionProvider>
-                </CacheProvider>
-            </IntlProvider>
-        </BrowserRouter>
+        <StrictMode>
+            <BrowserRouter>
+                <IntlProvider defaultLocale="en" locale={locale} messages={messages}>
+                    <CacheProvider value={cache}>
+                        <ExtensionProvider
+                            dependencies={dependencies}
+                            language={language}
+                            nonce={nonce}
+                            resources={resources}
+                        >
+                            <ApplicationTitle />
+                            <ApplicationContainer />
+                        </ExtensionProvider>
+                    </CacheProvider>
+                </IntlProvider>
+            </BrowserRouter>
+        </StrictMode>
     );
 }

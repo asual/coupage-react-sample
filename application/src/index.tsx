@@ -21,8 +21,6 @@
  */
 
 import { preloadResources } from "@coupage/core";
-import { createElement, Fragment, ReactElement, StrictMode, useEffect, useState } from "react";
-import { createRoot } from "react-dom/client";
 
 import { createLoadingElement } from "loading";
 
@@ -38,48 +36,32 @@ if (nonce) {
 
 const container = document.querySelector(".application");
 if (container) {
-    const root = createRoot(container);
-    root.render(
-        <StrictMode>
-            {createElement(() => {
-                const [applicationElement, setApplicationElement] = useState<ReactElement | null>(null);
-                const [loadingElement, setLoadingElement] = useState<ReactElement | null>(null);
-                useEffect(() => {
-                    const timeout = setTimeout(() => {
-                        setLoadingElement(createLoadingElement(nonce));
-                    }, 250);
-                    fetch("/resources.json")
-                        .then((data) => data.json())
-                        .then((resources) =>
-                            Promise.all([
-                                import(/* webpackChunkName: "application" */ "components/Application"),
-                                fetch(commonIntlMap[language]).then((data) => data.json()),
-                                fetch(intlMap[language]).then((data) => data.json()),
-                                preloadResources(resources, language, nonce),
-                            ]).then(([application, commonMessages, messages]) => {
-                                clearTimeout(timeout);
-                                setApplicationElement(
-                                    createElement(application.default, {
-                                        language,
-                                        locale,
-                                        messages: {
-                                            ...commonMessages,
-                                            ...messages,
-                                        },
-                                        nonce,
-                                        resources,
-                                    })
-                                );
-                            })
-                        );
-                    return () => {
-                        clearTimeout(timeout);
-                    };
-                }, []);
-                return applicationElement || loadingElement || <Fragment />;
-            })}
-        </StrictMode>
-    );
+    const timeout = setTimeout(() => {
+        createLoadingElement(container, nonce);
+    }, 250);
+    fetch("/resources.json")
+        .then((data) => data.json())
+        .then((resources) =>
+            Promise.all([
+                import(/* webpackChunkName: "application" */ "application"),
+                fetch(commonIntlMap[language]).then((data) => data.json()),
+                fetch(intlMap[language]).then((data) => data.json()),
+                preloadResources(resources, language, nonce),
+            ]).then(([{ createApplication }, commonMessages, messages]) => {
+                clearTimeout(timeout);
+                createApplication({
+                    container,
+                    language,
+                    locale,
+                    messages: {
+                        ...commonMessages,
+                        ...messages,
+                    },
+                    nonce,
+                    resources,
+                });
+            })
+        );
 }
 
 if (process.env.NODE_ENV === "production") {
