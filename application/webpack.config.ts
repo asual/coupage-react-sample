@@ -41,7 +41,7 @@ function readJsonFile(path: string) {
 }
 
 function cleanPath(path: string) {
-    return path.replace(/(\.\.|dist)\//g, "");
+    return path.replace(/(\.\.|dist)\//g, "").replace(/^\//, "");
 }
 
 const commonIntlMap = sync("node_modules/common/intl/*.*", {
@@ -59,7 +59,7 @@ const extensionResources = sync("../extensions/*/dist/*/*.*", {
 });
 
 const resources = extensionResources.reduce((acc: Record<string, Record<string, Record<string, unknown>>>, val) => {
-    const extensionName = readJsonFile(resolve(join(__dirname, dirname(val), "../../package.json"))).name;
+    const extensionName = readJsonFile(resolve(join(dirname(val), "../../package.json"))).name;
     const resourceFolder = basename(join(val, ".."));
     const resourceName = basename(val).split(".")[0];
     return {

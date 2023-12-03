@@ -43,7 +43,7 @@ if (container) {
         .then((data) => data.json())
         .then((resources) =>
             Promise.all([
-                import(/* webpackChunkName: "application" */ "application"),
+                import(/* webpackChunkName: "bootstrap" */ "bootstrap"),
                 fetch(commonIntlMap[language]).then((data) => data.json()),
                 fetch(intlMap[language]).then((data) => data.json()),
                 preloadResources(resources, language, nonce),
